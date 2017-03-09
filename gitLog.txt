@@ -1,0 +1,201 @@
+**We worked on the same machine via pair programming**
+
+commit 8339eb22ccbca699c9a17788e6598371b856152f
+Author: Byron Jones <byjones@mines.edu>
+Date:   Tue Mar 7 18:05:47 2017 -0700
+
+    All tests pass Ready for submit Part 4
+
+commit 45b2fb5395e3df4a5ef192704a13317ac4dd0610
+Author: Byron Jones <byjones@mines.edu>
+Date:   Tue Mar 7 17:32:44 2017 -0700
+
+    Shit works
+
+commit 1fb1e84c556c4a70f361e6c6cef9deeadec829e9
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Tue Mar 7 15:08:53 2017 -0700
+
+    All adjacency tests pass
+
+commit bea768f165233d04d4283fdb39f3cad7099a7d6e
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Tue Mar 7 14:04:56 2017 -0700
+
+    Added code to calcAdjacencies and calcTargets
+
+commit 0b1e9c411dd70441d31485c282c4cd633ef7d2f5
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Mon Mar 6 22:51:24 2017 -0700
+
+    Ready to submit for Part 3
+
+commit f4681e9abe3bf0a463a7bbca54c6fbbc2e737ace
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Mon Mar 6 22:49:04 2017 -0700
+
+    Failed tests implemented for Targets
+
+commit b1bb2f5c4333b027821d8327b3db995276383f6c
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Thu Mar 2 21:40:44 2017 -0700
+
+    Ready to submit ClueBoard Pt 2
+
+commit 45e0c6d28ccaf601e6059a4c2c1d1f296cd15a6b
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Thu Mar 2 21:33:40 2017 -0700
+
+    All tests passed
+
+commit 74706e173daec371fc278967abed9cd69c894106
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Thu Mar 2 21:02:26 2017 -0700
+
+    All exceptions tests pass
+
+commit 0b0612143b4dcd7b4fdfb2ff0b49ff064c0c9ef5
+Author: Byron Jones <byjones@mines.edu>
+Date:   Thu Mar 2 18:13:26 2017 -0700
+
+    exceptions compile
+
+commit 061a5638b90bfffb6ae6938c38d14d6b77f78452
+Author: Byron Jones <byjones@mines.edu>
+Date:   Thu Mar 2 18:10:40 2017 -0700
+
+    One block of testing CR_fileinit
+
+commit 7100c295007e85d1b89f3ff5a2b2567d7c851f34
+Author: Byron Jones <byjones@mines.edu>
+Date:   Thu Mar 2 17:20:42 2017 -0700
+
+    added door direction
+
+commit ef812a880c97e7d0c523fce040331c1c1d072d33
+Author: Byron Jones <byjones@mines.edu>
+Date:   Thu Mar 2 17:18:54 2017 -0700
+
+    Did math correctly, good for nums and inits
+
+commit 04d9f55be8816edd007587d8d9483bcd263f5e78
+Author: Byron Jones <byjones@mines.edu>
+Date:   Thu Mar 2 16:54:13 2017 -0700
+
+    added initalizations, fixed issue with inital removed the fuck
+
+commit aa22f50667254e49a00d7a637af1e546773b5e7a
+Author: Byron Jones <byjones@mines.edu>
+Date:   Thu Mar 2 16:10:16 2017 -0700
+
+    Working for counters
+
+commit 270f793d66b432a5596cb49d3dffa7e6adbb2002
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Thu Mar 2 15:13:31 2017 -0700
+
+    currently testing loadBoardConfig method
+
+commit 9661c34f152db954c624e5cccb7b037db28c0dd4
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Wed Mar 1 21:58:54 2017 -0700
+
+    testRooms of CR_FileInitTest.java passed
+
+commit 328feb40c5d54669403220f4e73c95a82cf1506e
+Author: Byron Jones <byjones@mines.edu>
+Date:   Wed Mar 1 17:28:55 2017 -0700
+
+    Ready to Submit
+
+commit 715825cb7495ea913dd510aee3ecf5799e243873
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Wed Mar 1 12:50:37 2017 -0700
+
+    Renamed tests class to be more specific
+
+commit fc26e16185af88222a9daba8a783c490b0eaff51
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Wed Mar 1 12:40:22 2017 -0700
+
+    Implemented failing tests for config file
+
+commit f48dd19e2f40fda441cb27e52cd9a3bd6aba21c0
+Author: Byron Jones <byjones@mines.edu>
+Date:   Tue Feb 28 16:25:56 2017 -0700
+
+    added board layout to working directory
+
+commit f32c57d4669718f8011463c04f9a24b244378c99
+Author: Byron Jones <byjones@mines.edu>
+Date:   Tue Feb 28 16:16:31 2017 -0700
+
+    Commit of skeletons
+
+commit 3dc09761e9eee77953b63a9ffd3381f6b37e0579
+Author: Byron Jones <byjones@mines.edu>
+Date:   Tue Feb 28 16:15:17 2017 -0700
+
+    Test
+
+commit 1d82c8a35d13ad721e3b6f93e8675cb99e27ab78
+Author: Byron Jones <byjones@mines.edu>
+Date:   Tue Feb 28 15:43:24 2017 -0700
+
+    Deleted commented out sections
+
+commit 87a42f849897bdcd88957b0c0ad63b6573be2cd9
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Sun Feb 26 18:30:13 2017 -0700
+
+    All tests passed
+
+commit 6b75ef5f577d37de98acd8260510a8a6db1408ca
+Author: Byron Jones <byjones@mines.edu>
+Date:   Sat Feb 25 17:54:31 2017 -0700
+
+    Working besides test 0_3 and test 23_3
+
+commit 02c004fc7f75b49b84f9e4fdd8ade190b48fdc3f
+Author: Byron Jones <byjones@mines.edu>
+Date:   Sat Feb 25 15:55:31 2017 -0700
+
+    implemented code for calcTargets
+
+commit f06425e55e36e7b341d89a08879be1a7887f5737
+Author: Byron Jones <byjones@mines.edu>
+Date:   Sat Feb 25 15:39:09 2017 -0700
+
+    Implemented calcAdjacencies method
+
+commit 1f7d424846d1a05f1be3b653ad7746f3234358a5
+Author: Byron Jones <byjones@mines.edu>
+Date:   Sat Feb 25 15:22:05 2017 -0700
+
+    Ready to submit Part 1
+
+commit 15256173d89dde9a2aaec5df84a0493d9a577415
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Fri Feb 24 23:36:19 2017 -0700
+
+    Added Tests for adjacency and targetList
+
+commit fe255127790eef320832c73de62489fd5da7ec0f
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Fri Feb 24 14:11:03 2017 -0700
+
+    Framework
+    
+    Established framework for packages/classes
+
+commit f4efa699042ec3cbbabeeff906fb824667a8d289
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Fri Feb 24 13:51:48 2017 -0700
+
+    Update .gitignore
+
+commit ce6956bce48fe3f85f19636ae8574d9c93de51ed
+Author: Byjones <byjones@mymail.mines.edu>
+Date:   Fri Feb 24 13:50:49 2017 -0700
+
+    Initial commit

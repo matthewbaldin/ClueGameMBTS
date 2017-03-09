@@ -1,0 +1,15 @@
+testDoorwayDirection:
+
+	After selecting four different cells that serve as doors, each 
+	with a different direction for the door, we picked cells that 
+	reside within the middle of the board and at the bottom right corner
+	of the board.
+
+	We chose these cells because it ensures that our tests are able to check
+	that the "middle" and "last" values are being read in correctly.
+
+testInitials:
+	
+	The cells we picked cover a large variety of rooms types including the walkway 
+	and closet types, and the cells reside in a wide variety of positions from the 
+	"beginning" of values being read in to the "last" values.

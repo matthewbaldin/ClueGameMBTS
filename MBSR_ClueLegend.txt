@@ -1,0 +1,11 @@
+O, Observatory, Card
+M, Mancave, Card
+C, Cave, Card
+T, Treefort, Card
+U, Under, Card
+V, Veranda, Card
+K, Kitchen, Card
+L, Library, Card
+P, Pool, Card
+D, Doghouse, Other
+W, Walkway, Other
