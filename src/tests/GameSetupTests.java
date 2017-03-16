@@ -30,7 +30,8 @@ public class GameSetupTests {
 		ArrayList<ComputerPlayer> cpus = board.getComputerPlayers();
 		Set<Card> cards = new HashSet<Card>();
 		cards.addAll(human.getMyCards());
-		int floor = board.getDeck().size - board.getTheAnswer().size;
+		// we subtract 3 for the solution ones, person, room, weapon.
+		int floor = board.getDeck().size() - 3;
 		if (human.getMyCards().size() != floor || human.getMyCards().size() != floor + 1) {
 			withinOne = false;
 		}
@@ -42,7 +43,10 @@ public class GameSetupTests {
 				}
 			}
 		}
-		cards.add(board.getTheAnswer());
+		
+		cards.add(board.getTheAnswer().weapon);
+		cards.add(board.getTheAnswer().room);
+		cards.add(board.getTheAnswer().person);
 		//test that all players are dealt roughly the same number of cards
 		assertEquals(true, withinOne);
 		//test that all cards are dealt only once and that all cards have been dealt
@@ -53,7 +57,7 @@ public class GameSetupTests {
 	
 	@Test
 	public void testPlayers() {
-		assertEquals("The Great Baldini", board.getHumanPlayer().getPlayerName());
+		assertEquals("The Great Baldini", board.getHumanPlayer().getName());
 		
 	}
 	@Test

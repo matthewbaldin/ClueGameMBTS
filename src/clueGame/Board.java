@@ -1,9 +1,12 @@
 package clueGame;
 
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.io.FileReader;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -275,29 +278,61 @@ public class Board {
 		if(deck == null){
 			deck = new ArrayList<Card>();
 		}
+		this.cpuPlayers = new ArrayList<ComputerPlayer>();
 		legend = new HashMap<Character, String>();
-		FileReader reader = new FileReader(roomConfigFile);
+		FileReader reader = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(reader); 
 
 		while (in.hasNextLine()) {
-			String str = in.nextLine();
-
-			if(str.substring(str.lastIndexOf(",") + 2).equals("Card")){
-				deck.add(new Card(str.substring(0,str.indexOf(",")),CardType.ROOM));
+			String name = in.nextLine();
+			if(!in.hasNextLine()){
+				throw new BadConfigFormatException("Incorrect number of lines in player config file "+playerConfigFile);			
 			}
-			else if (!str.substring(str.lastIndexOf(",") + 2).equals("Other")) {
-
-				throw new BadConfigFormatException("Incorrect Room Type: room should be of type 'Card' or 'Other'");			
-
+			deck.add(new Card(name,CardType.PERSON));
+			String color = in.nextLine();
+			Color colour = convertColor(color);
+			if(colour == null){
+				throw new BadConfigFormatException("Color format for person " + name + " in player config file "+playerConfigFile);
 			}
-			
-			legend.put(str.charAt(0), str.substring(3, str.indexOf(",", 3)));
-
+			if(!in.hasNextLine()){
+				throw new BadConfigFormatException("Incorrect number of lines in player config file "+playerConfigFile);			
+			}
+			String location = in.nextLine();
+			String[] startingPos = location.split(" ");
+			int row=0;
+			int col=0;
+			try{
+				Integer.parseInt(startingPos[0]);
+				Integer.parseInt(startingPos[1]);
+			}
+			catch(NumberFormatException e){
+				throw new BadConfigFormatException("Player " + name + " has invalid position in " + playerConfigFile);
+			}
+			if(this.getCellAt(row, col) == null|| !this.getCellAt(row, col).isWalkway()) {
+				throw new BadConfigFormatException("Player " + name + " is not on a walkway in " + playerConfigFile);
+			}
+			if(humanPlayer == null) { 
+				this.humanPlayer = new HumanPlayer(name,colour,row,col);
+			}
+			else
+			{
+				this.cpuPlayers.add(new ComputerPlayer(name,colour,row,col));
+			}
 		}
 		in.close();	
 	}
 	public void loadWeaponConfig() throws FileNotFoundException, BadConfigFormatException {
-		
+		if(deck == null){
+			deck = new ArrayList<Card>();
+		}
+		legend = new HashMap<Character, String>();
+		FileReader reader = new FileReader(weaponConfigFile);
+		Scanner in = new Scanner(reader);
+		while (in.hasNextLine()) {
+			String str = in.nextLine();
+			deck.add(new Card(str,CardType.WEAPON));
+		}
+		in.close();	
 	}
 	public void selectAnswer() {
 		
@@ -313,8 +348,36 @@ public class Board {
 	public ArrayList<Card> getDeck(){
 		return this.deck;
 	}
+	public void shuffleDeck(){
+		Collections.shuffle(deck);
+	}
+	/**
+	 * This method also creates the solution
+	 */
 	public void dealDeck(){
-		
+		shuffleDeck();
+		Card solPerson = null;
+		Card solWeapon = null;
+		Card solRoom = null;
+		int currentPlayer = 0;
+		for(Card c : deck){
+			switch(c.type){
+			case PERSON:
+				if(solPerson == null){
+					solPerson = c;
+				}
+				else {
+					
+				}
+				break;
+			case ROOM:
+				break;
+			case WEAPON:
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	public HumanPlayer getHumanPlayer() {
 		return this.humanPlayer;
@@ -322,4 +385,19 @@ public class Board {
 	public ArrayList<ComputerPlayer> getComputerPlayers() {
 		return this.cpuPlayers;
 	}
+	public Solution getTheAnswer() {
+		return this.theAnswer;
+	}
+	public static Color convertColor(String strColor) {
+	    Color color; 
+	    try {     
+	        // We can use reflection to convert the string to a color
+	        Field field = Class.forName("java.awt.Color").getField(strColor.trim());     
+	        color = (Color)field.get(null); 
+	    } catch (Exception e) {  
+	        color = null; // Not defined  
+	    }
+	    return color;
+	}
+
 }
