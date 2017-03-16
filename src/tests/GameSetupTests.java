@@ -2,19 +2,15 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.BeforeClass;
+import java.util.ArrayList;
 
-import clueGame.Board;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import clueGame.*;
 
 public class GameSetupTests {
-/*
-	public static HumanPlayer human;
-	public static ComputerPlayer cpu1;
-	public static ComputerPlayer cpu2;
-	public static ComputerPlayer cpu3;
-	public static ComputerPlayer cpu4;
-	public static ComputerPlayer cpu5;
-	*/
+
 	private static Board board;
 	@BeforeClass
 	public static void setUp() {
@@ -22,6 +18,15 @@ public class GameSetupTests {
 		board = Board.getInstance();
 		board.setConfigFiles("MBSR_ClueLayout.csv", "MBSR_ClueLegend.txt","MBSR_test_players.txt","MBSR_test_weapons.txt");
 		board.initialize();
+	}
+	@Test
+	public void testDeck() {
+		//test that all cards have been dealt
+		assertequals(0, board.getDeck().length());
+		boolean withinOne = false;
+		HumanPlayer human = board.getHumanPlayer();
+		ArrayList<ComputerPlayer> cpus = board.getComputerPlayers();
+		
 	}
 	
 }
