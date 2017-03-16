@@ -42,7 +42,6 @@ public class GameSetupTests {
 				}
 			}
 		}
-		
 		cards.add(board.getTheAnswer());
 		//test that all players are dealt roughly the same number of cards
 		assertEquals(true, withinOne);
@@ -50,5 +49,15 @@ public class GameSetupTests {
 		//this tests both because of the usage of a set data structure
 		//it ensures all cards have been dealt, and that all players hold disjoint sets of cards
 		assertEquals(board.getDeck().size(), cards.size());
+	}
+	
+	@Test
+	public void testPlayers() {
+		assertEquals("The Great Baldini", board.getHumanPlayer().getPlayerName());
+		
+	}
+	@Test
+	public void testDeck() {
+		
 	}
 }
