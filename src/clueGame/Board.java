@@ -134,7 +134,10 @@ public class Board {
 			System.out.println(e);
 			System.out.println(e.getMessage());
 		}
-		this.dealDeck();
+		//required to pass old tests
+		if(this.playerConfigFile != null){
+			this.dealDeck();
+		}
 		calcAdjacencies();
 	}
 
@@ -282,7 +285,6 @@ public class Board {
 		}
 		System.out.println("LOADING PLAYER CONFIG");
 		this.cpuPlayers = new ArrayList<ComputerPlayer>();
-		legend = new HashMap<Character, String>();
 		FileReader reader = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(reader); 
 
@@ -333,7 +335,6 @@ public class Board {
 		if(deck == null){
 			deck = new ArrayList<Card>();
 		}
-		legend = new HashMap<Character, String>();
 		FileReader reader = new FileReader(weaponConfigFile);
 		Scanner in = new Scanner(reader);
 		while (in.hasNextLine()) {
