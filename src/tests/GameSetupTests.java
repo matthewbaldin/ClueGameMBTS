@@ -70,10 +70,10 @@ public class GameSetupTests {
 		assertEquals(13, firstComputerPlayer.getRow());
 		assertEquals(4, firstComputerPlayer.getColumn());
 		//test that second CPU has correct name, color, and starting location
-		assertEquals("Erno Rubik", firstComputerPlayer.getPlayerName());
-		assertEquals(new Color(255, 0, 0), firstComputerPlayer.getColor());
-		assertEquals(10, firstComputerPlayer.getRow());
-		assertEquals(18, firstComputerPlayer.getColumn());
+		assertEquals("Erno Rubik", lastComputerPlayer.getPlayerName());
+		assertEquals(new Color(255, 0, 0), lastComputerPlayer.getColor());
+		assertEquals(10, lastComputerPlayer.getRow());
+		assertEquals(18, lastComputerPlayer.getColumn());
 	}
 	@Test
 	public void testDeck() {
