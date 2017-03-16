@@ -27,7 +27,7 @@ public abstract class Player {
 	public Set<Card> getSeenCards() {
 		return seenCards;
 	}
-	public String getName() {
+	public String getPlayerName() {
 		return this.playerName;
 	}
 	public Color getColor() {
