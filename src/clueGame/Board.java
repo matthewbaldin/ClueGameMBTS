@@ -131,8 +131,10 @@ public class Board {
 			System.out.println("Error loading config file " + e);
 		} catch (BadConfigFormatException e) {
 			System.out.println("There was a config error");
+			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
-
+		this.dealDeck();
 		calcAdjacencies();
 	}
 
@@ -278,6 +280,7 @@ public class Board {
 		if(deck == null){
 			deck = new ArrayList<Card>();
 		}
+		System.out.println("LOADING PLAYER CONFIG");
 		this.cpuPlayers = new ArrayList<ComputerPlayer>();
 		legend = new HashMap<Character, String>();
 		FileReader reader = new FileReader(playerConfigFile);
@@ -302,13 +305,18 @@ public class Board {
 			int row=0;
 			int col=0;
 			try{
-				Integer.parseInt(startingPos[0]);
-				Integer.parseInt(startingPos[1]);
+				row = Integer.parseInt(startingPos[0]);
+				col = Integer.parseInt(startingPos[1]);
 			}
 			catch(NumberFormatException e){
 				throw new BadConfigFormatException("Player " + name + " has invalid position in " + playerConfigFile);
 			}
-			if(this.getCellAt(row, col) == null|| !this.getCellAt(row, col).isWalkway()) {
+			if(this.getCellAt(row, col) == null){
+				throw new BadConfigFormatException("Player " + name + " is not on the board in " + playerConfigFile);
+			}
+			else if(!this.getCellAt(row, col).isWalkway()){
+//				BoardCell b = this.getCellAt(row, col);
+//				System.out.println(b.getRow()+" "+b.getColumn()+ " " +b.getInitial());
 				throw new BadConfigFormatException("Player " + name + " is not on a walkway in " + playerConfigFile);
 			}
 			if(humanPlayer == null) { 
@@ -335,7 +343,31 @@ public class Board {
 		in.close();	
 	}
 	public void selectAnswer() {
-		
+		Card person = null;
+		Card weapon = null;
+		Card room = null;
+		for(Card c : deck){
+			switch(c.type){
+			case PERSON:
+				if(person == null) {
+					person = c;
+				}
+				break;
+			case ROOM:
+				if(room == null) {
+					room = c;
+				}
+				break;
+			case WEAPON:
+				if(weapon == null) {
+					weapon = c;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		this.theAnswer = new Solution(person,weapon,room);
 	}
 	public Card handleSuggestion(){
 		
@@ -356,26 +388,39 @@ public class Board {
 	 */
 	public void dealDeck(){
 		shuffleDeck();
-		Card solPerson = null;
-		Card solWeapon = null;
-		Card solRoom = null;
+		selectAnswer();
 		int currentPlayer = 0;
 		for(Card c : deck){
+			boolean willDeal=true;
 			switch(c.type){
 			case PERSON:
-				if(solPerson == null){
-					solPerson = c;
-				}
-				else {
-					
+				if( c.equals(theAnswer.person) ) {
+					willDeal = false;
 				}
 				break;
 			case ROOM:
+				if( c.equals(theAnswer.room) ) {
+					willDeal = false;
+				}
 				break;
 			case WEAPON:
+				if( c.equals(theAnswer.weapon) ) {
+					willDeal = false;
+				}
 				break;
 			default:
 				break;
+			}
+			if(willDeal){
+				//deals card to the human last, increments through cpuPlayers
+				if(currentPlayer == cpuPlayers.size()){
+					humanPlayer.giveCard(c);
+					currentPlayer = 0;
+				}
+				else {
+					cpuPlayers.get(currentPlayer).giveCard(c);
+					currentPlayer++;
+				}
 			}
 		}
 	}
@@ -391,9 +436,7 @@ public class Board {
 	public static Color convertColor(String strColor) {
 	    Color color; 
 	    try {     
-	        // We can use reflection to convert the string to a color
-	        Field field = Class.forName("java.awt.Color").getField(strColor.trim());     
-	        color = (Color)field.get(null); 
+	        color = new Color( Integer.valueOf(strColor.substring(0,2), 16),Integer.valueOf(strColor.substring(2,4), 16), Integer.valueOf(strColor.substring(4,6), 16));
 	    } catch (Exception e) {  
 	        color = null; // Not defined  
 	    }
