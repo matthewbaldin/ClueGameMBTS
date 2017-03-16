@@ -1,10 +1,12 @@
 package clueGame;
 
+import java.awt.Color;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
 
-	public ComputerPlayer() {
+	public ComputerPlayer(String name, Color colour, int row, int col) {
+		super(name,colour,row,col);
 	}
 
 	@Override
