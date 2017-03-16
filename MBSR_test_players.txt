@@ -1,0 +1,18 @@
+Mr. Samuel
+FFFFFF
+3 4
+The Great Baldini
+000000
+6 7
+Flawless Robot
+FF00FF
+17 11
+Whomever
+00FFFF
+13 20
+The Dog
+0000FF
+9 11
+Erno Rubik
+FF0000
+10 18

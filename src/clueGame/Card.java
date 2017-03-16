@@ -1,14 +1,14 @@
 package clueGame;
 
 public class Card {
-	private String cardName;
-	public final CardType cardType;
+	private String name;
+	public final CardType type;
 	public Card(String name, CardType type) {
-		this.cardType = type;
-		this.cardName = name;
+		this.type = type;
+		this.name = name;
 	}
 	public boolean equals(Card c){
-		return false;
+		return (this.name.equals(c.name)) && this.type == c.type;
 	}
 
 }

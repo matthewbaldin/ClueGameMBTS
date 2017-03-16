@@ -15,9 +15,13 @@ public class GameSetupTests {
 	public static ComputerPlayer cpu4;
 	public static ComputerPlayer cpu5;
 	*/
+	private static Board board;
 	@BeforeClass
 	public static void setUp() {
-		
+		//initialize a board instance
+		board = Board.getInstance();
+		board.setConfigFiles("MBSR_ClueLayout.csv", "MBSR_ClueLegend.txt","MBSR_test_players.txt","MBSR_test_weapons.txt");
+		board.initialize();
 	}
-
+	
 }
