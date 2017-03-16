@@ -10,5 +10,4 @@ public class Card {
 	public boolean equals(Card c){
 		return (this.name.equals(c.name)) && this.type == c.type;
 	}
-
 }
