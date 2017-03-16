@@ -3,6 +3,8 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,12 +24,31 @@ public class GameSetupTests {
 		board.initialize();
 	}
 	@Test
-	public void testDeck() {
-		//test that all cards have been dealt
-		assertequals(0, board.getDeck().length());
-		boolean withinOne = false;
+	public void testDeal() {
+		boolean withinOne = true;
 		HumanPlayer human = board.getHumanPlayer();
 		ArrayList<ComputerPlayer> cpus = board.getComputerPlayers();
+		Set<Card> cards = new HashSet<Card>();
+		cards.addAll(human.getMyCards());
+		int floor = board.getDeck().size - board.getTheAnswer().size;
+		if (human.getMyCards().size() != floor || human.getMyCards().size() != floor + 1) {
+			withinOne = false;
+		}
+		if(!cpus.isEmpty()) {
+			for(ComputerPlayer i : cpus) { 
+				cards.addAll(i.getMyCards());
+				if (i.getMyCards().size() != floor || i.getMyCards().size() != floor + 1) {
+					withinOne = false;
+				}
+			}
+		}
 		
+		cards.add(board.getTheAnswer());
+		//test that all players are dealt roughly the same number of cards
+		assertEquals(true, withinOne);
+		//test that all cards are dealt only once and that all cards have been dealt
+		//this tests both because of the usage of a set data structure
+		//it ensures all cards have been dealt, and that all players hold disjoint sets of cards
+		assertEquals(board.getDeck().size(), cards.size());
 	}
 }

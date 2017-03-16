@@ -15,4 +15,11 @@ public abstract class Player {
 	}
 	public abstract Card disproveSuggestion(Solution suggestion);
 	
+	public Set<Card> getMyCards() {
+		return myCards;
+	}
+	public Set<Card> getSeenCards() {
+		return seenCards;
+	}
+	
 }
