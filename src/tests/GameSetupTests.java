@@ -31,19 +31,17 @@ public class GameSetupTests {
 		Set<Card> cards = new HashSet<Card>();
 		cards.addAll(human.getMyCards());
 		// we subtract 3 for the solution ones, person, room, weapon.
-		int floor = board.getDeck().size() - 3;
-		if (human.getMyCards().size() != floor || human.getMyCards().size() != floor + 1) {
+		int floor = (board.getDeck().size() - 3)/(1 + cpus.size());
+		if (!(human.getMyCards().size() != floor || human.getMyCards().size() != floor + 1)) {
 			withinOne = false;
 		}
-		if(!cpus.isEmpty()) {
-			for(ComputerPlayer i : cpus) { 
-				cards.addAll(i.getMyCards());
-				if (i.getMyCards().size() != floor || i.getMyCards().size() != floor + 1) {
-					withinOne = false;
-				}
+		for(ComputerPlayer i : cpus) { 
+			cards.addAll(i.getMyCards());
+			if (!(i.getMyCards().size() != floor || i.getMyCards().size() != floor + 1)){
+				withinOne = false;
+				System.out.println(i.getMyCards().size());
 			}
 		}
-		
 		cards.add(board.getTheAnswer().weapon);
 		cards.add(board.getTheAnswer().room);
 		cards.add(board.getTheAnswer().person);
