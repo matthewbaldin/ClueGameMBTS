@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -57,8 +58,24 @@ public class GameSetupTests {
 	
 	@Test
 	public void testPlayers() {
-		assertEquals("The Great Baldini", board.getHumanPlayer().getName());
-		
+		//assert player has correct name, color, and starting location
+		assertEquals("Mr. Samuel", board.getHumanPlayer().getPlayerName());
+		assertEquals(new Color(255, 255, 255), board.getHumanPlayer().getColor());
+		assertEquals(4, board.getHumanPlayer().getRow());
+		assertEquals(3, board.getHumanPlayer().getColumn());
+		//assert first CPU has correct name, color, and starting location
+		ArrayList<ComputerPlayer> cpus = board.getComputerPlayers();
+		ComputerPlayer firstComputerPlayer = cpus.get(0);
+		ComputerPlayer lastComputerPlayer = cpus.get(cpus.size() - 1);
+		assertEquals("The Great Baldini", firstComputerPlayer.getPlayerName());
+		assertEquals(new Color(0, 0, 0), firstComputerPlayer.getColor());
+		assertEquals(13, firstComputerPlayer.getRow());
+		assertEquals(4, firstComputerPlayer.getColumn());
+		//test that second CPU has correct name, color, and starting location
+		assertEquals("Erno Rubik", firstComputerPlayer.getPlayerName());
+		assertEquals(new Color(255, 0, 0), firstComputerPlayer.getColor());
+		assertEquals(10, firstComputerPlayer.getRow());
+		assertEquals(18, firstComputerPlayer.getColumn());
 	}
 	@Test
 	public void testDeck() {
