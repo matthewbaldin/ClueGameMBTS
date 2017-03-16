@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -20,6 +21,9 @@ public class Board {
 	private Set<BoardCell> visited;
 	private String boardConfigFile;
 	private String roomConfigFile;
+	private String playerConfigFile;
+	private String weaponConfigFile;
+	private ArrayList<Card> deck;
 
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -31,14 +35,23 @@ public class Board {
 	public static Board getInstance() {
 		return theInstance;
 	}
-
+	@Deprecated
 	public void setConfigFiles(String boardCF, String roomCF) {
 		boardConfigFile = boardCF;
 		roomConfigFile = roomCF;
 	}
-
+	public void setConfigFiles(String boardCF, String roomCF, String playerCF, String weaponCF) {
+		boardConfigFile = boardCF;
+		roomConfigFile = roomCF;
+		playerConfigFile = playerCF;
+		weaponConfigFile = weaponCF;
+	}
 	// Reads legend file into Map instance 
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
+		
+		if(deck == null){
+			deck = new ArrayList<Card>();
+		}
 		legend = new HashMap<Character, String>();
 		FileReader reader = new FileReader(roomConfigFile);
 		Scanner in = new Scanner(reader); 
@@ -46,12 +59,15 @@ public class Board {
 		while (in.hasNextLine()) {
 			String str = in.nextLine();
 
-			if (!str.substring(str.lastIndexOf(",") + 2).equals("Card") && !str.substring(str.lastIndexOf(",") + 2).equals("Other")) {
+			if(str.substring(str.lastIndexOf(",") + 2).equals("Card")){
+				deck.add(new Card(str.substring(0,str.indexOf(",")),CardType.ROOM));
+			}
+			else if (!str.substring(str.lastIndexOf(",") + 2).equals("Other")) {
 
 				throw new BadConfigFormatException("Incorrect Room Type: room should be of type 'Card' or 'Other'");			
 
 			}
-
+			
 			legend.put(str.charAt(0), str.substring(3, str.indexOf(",", 3)));
 
 		}
@@ -102,10 +118,9 @@ public class Board {
 	public void initialize() {
 		legend = new HashMap<Character, String>();
 		targets = new HashSet<BoardCell>();
-
+		deck = new ArrayList<Card>();
 		try {
-			loadRoomConfig();
-			loadBoardConfig();
+			loadConfigFiles();
 		} catch (FileNotFoundException e) {
 			System.out.println("Error loading config file " + e);
 		} catch (BadConfigFormatException e) {
@@ -243,9 +258,36 @@ public class Board {
 		return targets;
 	}
 
+	public void loadConfigFiles() throws FileNotFoundException, BadConfigFormatException {
+		loadRoomConfig();
+		loadBoardConfig();
+	}
+	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
 
+		if(deck == null){
+			deck = new ArrayList<Card>();
+		}
+		FileReader reader = new FileReader(playerConfigFile);
+		Scanner in = new Scanner(reader); 
 
-	public void loadConfigFiles() {
+		while (in.hasNextLine()) {
+			String str = in.nextLine();
+
+			if(str.substring(str.lastIndexOf(",") + 2).equals("Card")){
+				deck.add(new Card(str.substring(0,str.indexOf(",")),CardType.ROOM));
+			}
+			else if (!str.substring(str.lastIndexOf(",") + 2).equals("Other")) {
+
+				throw new BadConfigFormatException("Incorrect Room Type: room should be of type 'Card' or 'Other'");			
+
+			}
+			
+			legend.put(str.charAt(0), str.substring(3, str.indexOf(",", 3)));
+
+		}
+		in.close();		
+	}
+	public void loadWeaponConfig() throws FileNotFoundException, BadConfigFormatException {
 		
 	}
 	public void selectAnswer() {

@@ -2,8 +2,10 @@ package clueGame;
 
 public class Card {
 	private String cardName;
-	public Card() {
-		// TODO Auto-generated constructor stub
+	public final CardType cardType;
+	public Card(String name, CardType type) {
+		this.cardType = type;
+		this.cardName = name;
 	}
 	public boolean equals(Card c){
 		return false;
