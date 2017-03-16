@@ -79,6 +79,10 @@ public class GameSetupTests {
 	}
 	@Test
 	public void testDeck() {
-		
+		//test we have loaded the correct number of cards, 9 + 6 + 6
+		assertEquals(21, board.getDeck());
+		int weaponSum = 0;
+		int playerSum = 0;
+		int roomSum = 0;
 	}
 }
