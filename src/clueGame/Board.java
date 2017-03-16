@@ -26,6 +26,7 @@ public class Board {
 	private ArrayList<Card> deck;
 	private ArrayList<ComputerPlayer> cpuPlayers;
 	private HumanPlayer humanPlayer;
+	private Solution theAnswer;
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
 
@@ -270,7 +271,29 @@ public class Board {
 		}
 	}
 	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
+		if(deck == null){
+			deck = new ArrayList<Card>();
+		}
+		legend = new HashMap<Character, String>();
+		FileReader reader = new FileReader(roomConfigFile);
+		Scanner in = new Scanner(reader); 
 
+		while (in.hasNextLine()) {
+			String str = in.nextLine();
+
+			if(str.substring(str.lastIndexOf(",") + 2).equals("Card")){
+				deck.add(new Card(str.substring(0,str.indexOf(",")),CardType.ROOM));
+			}
+			else if (!str.substring(str.lastIndexOf(",") + 2).equals("Other")) {
+
+				throw new BadConfigFormatException("Incorrect Room Type: room should be of type 'Card' or 'Other'");			
+
+			}
+			
+			legend.put(str.charAt(0), str.substring(3, str.indexOf(",", 3)));
+
+		}
+		in.close();	
 	}
 	public void loadWeaponConfig() throws FileNotFoundException, BadConfigFormatException {
 		
@@ -285,5 +308,8 @@ public class Board {
 	public boolean checkAccusation(Solution accusation) {
 		
 		return false;
+	}
+	public ArrayList<Card> getDeck(){
+		return this.deck;
 	}
 }
