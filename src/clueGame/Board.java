@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -311,5 +312,14 @@ public class Board {
 	}
 	public ArrayList<Card> getDeck(){
 		return this.deck;
+	}
+	public void dealDeck(){
+		
+	}
+	public HumanPlayer getHumanPlayer() {
+		return this.humanPlayer;
+	}
+	public ArrayList<ComputerPlayer> getComputerPlayers() {
+		return this.cpuPlayers;
 	}
 }
