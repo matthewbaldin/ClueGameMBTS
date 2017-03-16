@@ -20,8 +20,9 @@ public class GameSetupTests {
 	public static void setUp() {
 		//initialize a board instance
 		board = Board.getInstance();
+		//using our config files
 		board.setConfigFiles("MBSR_ClueLayout.csv", "MBSR_ClueLegend.txt","MBSR_test_players.txt","MBSR_test_weapons.txt");
+		//initializing
 		board.initialize();
 	}
-	
 }
