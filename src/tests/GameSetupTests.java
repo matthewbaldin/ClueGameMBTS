@@ -80,7 +80,30 @@ public class GameSetupTests {
 		//test we have loaded the correct number of cards, 9 + 6 + 6
 		assertEquals(21, board.getDeck());
 		int weaponSum = 0;
-		int playerSum = 0;
+		int personSum = 0;
 		int roomSum = 0;
+		for (Card i : board.getDeck()) {
+			switch(i.type){
+			case PERSON:
+				++personSum;
+				break;
+			case ROOM:
+				++roomSum;
+				break;
+			case WEAPON:
+				++weaponSum;
+				break;
+			default:
+				break;}
+			
+		}
+		//assert correct number of weapons, people, and rooms
+		assertEquals(6, weaponSum);
+		assertEquals(6, personSum);
+		assertEquals(9, roomSum);
+		//Test for presence of a weapon, a room, and a person
+		assertTrue(board.getDeck().contains(new Card("The Great Baldini", CardType.PERSON)));
+		assertTrue(board.getDeck().contains(new Card("Banana Peel", CardType.WEAPON)));
+		assertTrue(board.getDeck().contains(new Card("Observatory", CardType.ROOM)));
 	}
 }
