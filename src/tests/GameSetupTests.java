@@ -47,7 +47,7 @@ public class GameSetupTests {
 		cards.add(board.getTheAnswer().room);
 		cards.add(board.getTheAnswer().person);
 		//test that all players are dealt roughly the same number of cards
-		assertEquals(true, withinOne);
+		assertTrue(withinOne);
 		//test that all cards are dealt only once and that all cards have been dealt
 		//this tests both because of the usage of a set data structure
 		//it ensures all cards have been dealt, and that all players hold disjoint sets of cards
@@ -78,19 +78,25 @@ public class GameSetupTests {
 	@Test
 	public void testDeck() {
 		//test we have loaded the correct number of cards, 9 + 6 + 6
-		assertEquals(21, board.getDeck());
+		assertEquals(21, board.getDeck().size());
 		int weaponSum = 0;
 		int personSum = 0;
 		int roomSum = 0;
+		boolean hasBaldini = false;
+		boolean hasBanana = false;
+		boolean hasObservatory = false;
 		for (Card i : board.getDeck()) {
 			switch(i.type){
 			case PERSON:
+				hasBaldini |= (i.name.equals("The Great Baldini"));
 				++personSum;
 				break;
 			case ROOM:
+				hasObservatory |= (i.name.equals("Observatory"));
 				++roomSum;
 				break;
 			case WEAPON:
+				hasBanana |= (i.name.equals("Banana Peel"));
 				++weaponSum;
 				break;
 			default:
@@ -102,8 +108,8 @@ public class GameSetupTests {
 		assertEquals(6, personSum);
 		assertEquals(9, roomSum);
 		//Test for presence of a weapon, a room, and a person
-		assertTrue(board.getDeck().contains(new Card("The Great Baldini", CardType.PERSON)));
-		assertTrue(board.getDeck().contains(new Card("Banana Peel", CardType.WEAPON)));
-		assertTrue(board.getDeck().contains(new Card("Observatory", CardType.ROOM)));
+		assertTrue(hasBanana);
+		assertTrue(hasBaldini);
+		assertTrue(hasObservatory);
 	}
 }

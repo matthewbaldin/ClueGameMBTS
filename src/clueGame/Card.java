@@ -1,7 +1,7 @@
 package clueGame;
 
 public class Card {
-	private String name;
+	public final String name;
 	public final CardType type;
 	public Card(String name, CardType type) {
 		this.type = type;

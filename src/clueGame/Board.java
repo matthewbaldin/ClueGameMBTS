@@ -66,7 +66,7 @@ public class Board {
 			String str = in.nextLine();
 
 			if(str.substring(str.lastIndexOf(",") + 2).equals("Card")){
-				deck.add(new Card(str.substring(0,str.indexOf(",")),CardType.ROOM));
+				deck.add(new Card(str.substring(str.indexOf(",")+1,str.lastIndexOf(",")).trim(),CardType.ROOM));
 			}
 			else if (!str.substring(str.lastIndexOf(",") + 2).equals("Other")) {
 
