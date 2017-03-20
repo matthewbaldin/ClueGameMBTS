@@ -283,7 +283,6 @@ public class Board {
 		if(deck == null){
 			deck = new ArrayList<Card>();
 		}
-		System.out.println("LOADING PLAYER CONFIG");
 		this.cpuPlayers = new ArrayList<ComputerPlayer>();
 		FileReader reader = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(reader); 
