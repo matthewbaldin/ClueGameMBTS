@@ -302,32 +302,40 @@ public class GameActionTests {
 		for(Card c : weapons) {
 			player.showCard(c);
 		}
-		assertTrue((new Solution(expectedPerson, expectedWeapon, expectedRoom)).equals(player.createSuggestion()));
+		boolean failedEquality = false;
+		
+		for(int i = 0 ; i < 100 ; ++i) {
+			Solution suggestion = player.createSuggestion();
+			//System.out.println(suggestion.person.name+" "+suggestion.weapon.name+" "+suggestion.room.name);
+			//System.out.println(expectedPerson.name + " " + expectedWeapon.name + " " + expectedRoom.name );
+			failedEquality |= !(new Solution(expectedPerson, expectedWeapon, expectedRoom)).equals(suggestion);
+		}
+		assertFalse(failedEquality);
 	}
 	
 	//disprove suggestions tests, tests 0, 1, and > 1 matching cards
 	@Test 
 	public void testDisproveSuggestion() {
-		Solution suggestion = new Solution(new Card("Testy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
+		Solution suggestion = new Solution(new Card("The Great Baldini", CardType.PERSON), new Card("Banana Peel", CardType.WEAPON), new Card("Library", CardType.ROOM));
 		ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
 		//test no matching cards returns null
 		assertEquals(null, player.disproveSuggestion(suggestion));
-		player.giveCard(new Card("Testy", CardType.PERSON));
+		player.giveCard(new Card("The Great Baldini", CardType.PERSON));
 		//tests one matching card returns the card
-		assertEquals(new Card("Testy", CardType.PERSON), player.disproveSuggestion(suggestion));
+		assertTrue(new Card("The Great Baldini", CardType.PERSON).equals(player.disproveSuggestion(suggestion)));
 		boolean testyAppears = false;
 		boolean bananaPeelAppears = false;
 		boolean libraryAppears = false;
-		player.giveCard(new Card("Libary", CardType.ROOM));
+		player.giveCard(new Card("Library", CardType.ROOM));
 		player.giveCard(new Card("Banana Peel", CardType.WEAPON));
 		for (int i = 0; i < 100; ++i) {
-			if (player.disproveSuggestion(suggestion).equals(new Card("Libary", CardType.ROOM))) {
+			if (player.disproveSuggestion(suggestion).equals(new Card("Library", CardType.ROOM))) {
 				libraryAppears = true;
 			}
 			else if (player.disproveSuggestion(suggestion).equals(new Card("Banana Peel", CardType.WEAPON))) {
 				bananaPeelAppears = true;
 			}
-			else if (player.disproveSuggestion(suggestion).equals(new Card("Testy", CardType.PERSON))) {
+			else if (player.disproveSuggestion(suggestion).equals(new Card("The Great Baldini", CardType.PERSON))) {
 				testyAppears = true;
 			}
 		}

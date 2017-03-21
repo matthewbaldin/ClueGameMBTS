@@ -41,6 +41,7 @@ public abstract class Player {
 	}
 	public void giveCard(Card c){
 		this.myCards.add(c);
+		this.seenCards.add(c);
 	}
 	public void moveTo(BoardCell b){
 		 this.row = b.getRow();
