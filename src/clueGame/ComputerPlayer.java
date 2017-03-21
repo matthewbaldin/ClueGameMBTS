@@ -68,7 +68,7 @@ public class ComputerPlayer extends Player {
 			weapons.remove(c);
 		}
 		Card person = persons.get((new Random()).nextInt(persons.size()));
-		Card weapon = persons.get((new Random()).nextInt(weapons.size()));
+		Card weapon = weapons.get((new Random()).nextInt(weapons.size()));
 		return new Solution(person,weapon,room);
 	}
 	@Override

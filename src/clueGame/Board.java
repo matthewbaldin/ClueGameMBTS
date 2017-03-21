@@ -349,7 +349,7 @@ public class Board {
 	}
 	@SuppressWarnings("unchecked")
 	public ArrayList<Card> getPersons() {
-		return (ArrayList<Card>)this.weaponCards.clone();
+		return (ArrayList<Card>)this.playerCards.clone();
 	}
 	@SuppressWarnings("unchecked")
 	public ArrayList<Card> getWeapons() {
