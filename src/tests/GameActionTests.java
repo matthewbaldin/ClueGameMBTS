@@ -167,8 +167,35 @@ public class GameActionTests {
 	public void testCreateSuggestion() {
 		ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
 		player.moveTo(board.getCellAt(20,  21));
-		Solution answer = board.getTheAnswer();
-		
-		
+		//Solution answer = board.getTheAnswer();
+		ArrayList<Card> deck= board.getDeck();
+		//weapons they can see
+		ArrayList<Card> rooms = new ArrayList<Card>();
+		ArrayList<Card> persons = new ArrayList<Card>();
+		ArrayList<Card> weapons = new ArrayList<Card>();
+		for(Card c : deck){
+			switch(c.type){
+			case PERSON:
+				persons.add(c);
+				break;
+			case ROOM:
+				rooms.add(c);
+				break;
+			case WEAPON:
+				weapons.add(c);
+				break;
+			}
+		}
+		Card expectedPerson = persons.remove(persons.size()-1);
+		//player is in the library in this test
+		Card expectedRoom = new Card("Library",CardType.ROOM);
+		Card expectedWeapon = weapons.remove(weapons.size()-1);
+		for(Card c : persons) {
+			player.showCard(c);
+		}
+		for(Card c : weapons) {
+			player.showCard(c);
+		}
+		assertTrue(player.createSuggestion().equals(new Solution(expectedPerson, expectedWeapon, expectedRoom)));
 	}
 }
