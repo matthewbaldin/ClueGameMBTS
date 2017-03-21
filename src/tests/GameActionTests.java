@@ -198,10 +198,7 @@ public class GameActionTests {
 			player.showCard(c);
 		}
 		Solution suggestion = player.createSuggestion();
-		System.out.println(expectedPerson.name);
-		System.out.println(suggestion.person.name);
-		
-		assertTrue(player.createSuggestion().equals(new Solution(expectedPerson, expectedWeapon, expectedRoom)));
+		assertTrue(suggestion.equals(new Solution(expectedPerson, expectedWeapon, expectedRoom)));
 	}
 	//This test forces a single suggestion out
 		@Test
