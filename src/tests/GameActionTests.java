@@ -149,21 +149,23 @@ public class GameActionTests {
 	@Test
 	public void testAccusation() {
 		Solution solution = board.getTheAnswer();
-		//none match
+		//none match, all is wrong, wrong name
 		Solution accusation0 = new Solution(new Card("Testy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
 		assertFalse(board.checkAccusation(accusation0));
-		//one matches
+		//one matches, wrong weapon
 		Solution accusation1 = new Solution(solution.person, new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
 		assertFalse(board.checkAccusation(accusation1));
-		//two match
+		//two match, wrong room
 		Solution accusation2 = new Solution(solution.person, solution.weapon, new Card("Mezzanine", CardType.ROOM));
 		assertFalse(board.checkAccusation(accusation2));
-		//all three match, should be valid
+		//all three match, should be valid, none wrong
 		Solution accusation3 = new Solution(solution.person, solution.weapon, solution.room);
 		assertTrue(board.checkAccusation(accusation3));
 	}
 	
 	//This test forces a single suggestion out
+	//Player is not given any cards during this test.
+
 	@Test
 	public void testCreateSuggestionForced() {
 		ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
@@ -265,4 +267,73 @@ public class GameActionTests {
 			assertTrue(foundWB);
 			assertFalse(foundNotRoom);
 		}
+
+	//Player is given some cards during this test.
+	@Test
+	public void testCreateSuggestionWithGivenCards() {
+		ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
+		player.moveTo(board.getCellAt(20,  21));
+		//Solution answer = board.getTheAnswer();
+		ArrayList<Card> deck= board.getDeck();
+		//weapons they can see
+		ArrayList<Card> rooms = new ArrayList<Card>();
+		ArrayList<Card> persons = new ArrayList<Card>();
+		ArrayList<Card> weapons = new ArrayList<Card>();
+		for(Card c : deck){
+			switch(c.type){
+			case PERSON:
+				persons.add(c);
+				break;
+			case ROOM:
+				rooms.add(c);
+				break;
+			case WEAPON:
+				weapons.add(c);
+				break;
+			}
+		}
+		Card expectedPerson = persons.remove(persons.size()-1);
+		//player is in the library in this test
+		Card expectedRoom = new Card("Library",CardType.ROOM);
+		Card expectedWeapon = weapons.remove(weapons.size()-1);
+		for(Card c : persons) {
+			player.giveCard(c);
+		}
+		for(Card c : weapons) {
+			player.showCard(c);
+		}
+		assertTrue((new Solution(expectedPerson, expectedWeapon, expectedRoom)).equals(player.createSuggestion()));
+	}
+	
+	//disprove suggestions tests, tests 0, 1, and > 1 matching cards
+	@Test 
+	public void testDisproveSuggestion() {
+		Solution suggestion = new Solution(new Card("Testy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
+		ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
+		//test no matching cards returns null
+		assertEquals(null, player.disproveSuggestion(suggestion));
+		player.giveCard(new Card("Testy", CardType.PERSON));
+		//tests one matching card returns the card
+		assertEquals(new Card("Testy", CardType.PERSON), player.disproveSuggestion(suggestion));
+		boolean testyAppears = false;
+		boolean bananaPeelAppears = false;
+		boolean libraryAppears = false;
+		player.giveCard(new Card("Libary", CardType.ROOM));
+		player.giveCard(new Card("Banana Peel", CardType.WEAPON));
+		for (int i = 0; i < 100; ++i) {
+			if (player.disproveSuggestion(suggestion).equals(new Card("Libary", CardType.ROOM))) {
+				libraryAppears = true;
+			}
+			else if (player.disproveSuggestion(suggestion).equals(new Card("Banana Peel", CardType.WEAPON))) {
+				bananaPeelAppears = true;
+			}
+			else if (player.disproveSuggestion(suggestion).equals(new Card("Testy", CardType.PERSON))) {
+				testyAppears = true;
+			}
+		}
+		//tests randomly chosen card if > 1 matching card
+		assertTrue(testyAppears);
+		assertTrue(libraryAppears);
+		assertTrue(bananaPeelAppears);
+	}
 }
