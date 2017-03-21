@@ -42,4 +42,9 @@ public abstract class Player {
 	protected void giveCard(Card c){
 		this.myCards.add(c);
 	}
+	public void moveTo(BoardCell b){
+		 this.row = b.getRow();
+		 this.column = b.getColumn();
+		 
+	}
 }

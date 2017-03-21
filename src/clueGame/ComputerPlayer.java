@@ -22,6 +22,7 @@ public class ComputerPlayer extends Player {
 			if(b.isRoom()){
 				if(b.getInitial() != lastRoomChar){
 					if(!hasNewRoom) {
+						
 						possibilities.clear();
 						hasNewRoom = true;
 					}
@@ -55,5 +56,12 @@ public class ComputerPlayer extends Player {
 	}
 	public void createSuggestion() {
 		
+	}
+	@Override
+	public void moveTo(BoardCell b){
+		super.moveTo(b);
+		if(b.isRoom()){
+			this.lastRoomChar = b.getInitial();
+		}
 	}
 }
