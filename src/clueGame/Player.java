@@ -39,7 +39,7 @@ public abstract class Player {
 	public int getColumn() {
 		return this.column;
 	}
-	protected void giveCard(Card c){
+	public void giveCard(Card c){
 		this.myCards.add(c);
 	}
 	public void moveTo(BoardCell b){
