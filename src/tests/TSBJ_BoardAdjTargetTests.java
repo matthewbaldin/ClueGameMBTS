@@ -221,9 +221,11 @@ public class TSBJ_BoardAdjTargetTests {
 		
 		board.calcTargets(14, 3, 6);
 		Set<BoardCell> targets= board.getTargets();
+		/* Commented out as unnecessary
 		for(BoardCell x: targets){
 			System.out.println(x.getRow() + " " + x.getColumn());
 		}
+		*/
 		assertEquals(16, targets.size());
 		assertTrue(targets.contains(board.getCellAt(19, 4)));
 		assertTrue(targets.contains(board.getCellAt(14, 9)));

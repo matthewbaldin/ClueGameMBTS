@@ -43,8 +43,7 @@ public class Board {
 	}
 	@Deprecated
 	public void setConfigFiles(String boardCF, String roomCF) {
-		boardConfigFile = boardCF;
-		roomConfigFile = roomCF;
+		setConfigFiles(boardCF,roomCF,null,null);
 	}
 	public void setConfigFiles(String boardCF, String roomCF, String playerCF, String weaponCF) {
 		boardConfigFile = boardCF;
@@ -230,7 +229,7 @@ public class Board {
 			}
 		}
 
-		for (BoardCell x: adjMatrix.get(board[rows][cols]))
+		for (BoardCell x : adjMatrix.get(board[rows][cols]))
 		{
 			if(!visited.contains(x))
 			{
@@ -316,8 +315,6 @@ public class Board {
 				throw new BadConfigFormatException("Player " + name + " is not on the board in " + playerConfigFile);
 			}
 			else if(!this.getCellAt(row, col).isWalkway()){
-//				BoardCell b = this.getCellAt(row, col);
-//				System.out.println(b.getRow()+" "+b.getColumn()+ " " +b.getInitial());
 				throw new BadConfigFormatException("Player " + name + " is not on a walkway in " + playerConfigFile);
 			}
 			if(humanPlayer == null) { 
