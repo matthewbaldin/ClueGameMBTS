@@ -382,7 +382,8 @@ public class Board {
 		}
 		this.theAnswer = new Solution(person,weapon,room);
 	}
-	public Card handleSuggestion(){
+	public Card handleSuggestion(Solution suggestion, Player accuser){
+		int index = getComputerPlayers().indexOf(accuser);
 		
 		return null;
 	}
