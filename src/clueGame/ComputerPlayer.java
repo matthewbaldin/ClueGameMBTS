@@ -40,14 +40,14 @@ public class ComputerPlayer extends Player {
 				}
 			}
 		}
-		int selected = (int) Math.floor(Math.random()*possibilities.size());
+		int selected = (int) Math.floor(Math.random() * possibilities.size());
 		BoardCell selectedCell = null;
 		int i = 0;
 		for(BoardCell b : possibilities ){
 			if(selected == i) {
 				selectedCell = b;
 			}
-			i++;
+			++i;
 		}
 		return selectedCell;
 	}
