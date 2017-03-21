@@ -28,6 +28,8 @@ public class Board {
 	private String playerConfigFile;
 	private String weaponConfigFile;
 	private ArrayList<Card> deck;
+	private ArrayList<Card> playerCards;
+	private ArrayList<Card> weaponCards;
 	private ArrayList<ComputerPlayer> cpuPlayers;
 	private HumanPlayer humanPlayer;
 	private Solution theAnswer;
@@ -282,6 +284,7 @@ public class Board {
 		if(deck == null){
 			deck = new ArrayList<Card>();
 		}
+		playerCards = new ArrayList<Card>();
 		this.cpuPlayers = new ArrayList<ComputerPlayer>();
 		FileReader reader = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(reader); 
@@ -291,7 +294,9 @@ public class Board {
 			if(!in.hasNextLine()){
 				throw new BadConfigFormatException("Incorrect number of lines in player config file "+playerConfigFile);			
 			}
-			deck.add(new Card(name,CardType.PERSON));
+			Card newPerson = new Card(name,CardType.PERSON);
+			deck.add(newPerson);
+			playerCards.add(newPerson);
 			String color = in.nextLine();
 			Color colour = convertColor(color);
 			if(colour == null){
@@ -331,13 +336,24 @@ public class Board {
 		if(deck == null){
 			deck = new ArrayList<Card>();
 		}
+		weaponCards = new ArrayList<Card>();
 		FileReader reader = new FileReader(weaponConfigFile);
 		Scanner in = new Scanner(reader);
 		while (in.hasNextLine()) {
 			String str = in.nextLine();
-			deck.add(new Card(str,CardType.WEAPON));
+			Card newWep = new Card(str,CardType.WEAPON);
+			deck.add(newWep);
+			weaponCards.add(newWep);
 		}
 		in.close();	
+	}
+	@SuppressWarnings("unchecked")
+	public ArrayList<Card> getPersons() {
+		return (ArrayList<Card>)this.playerCards.clone();
+	}
+	@SuppressWarnings("unchecked")
+	public ArrayList<Card> getWeapons() {
+		return (ArrayList<Card>)this.weaponCards.clone();
 	}
 	public void selectAnswer() {
 		Card person = null;
