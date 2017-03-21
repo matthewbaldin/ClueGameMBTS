@@ -236,37 +236,4 @@ public class GameActionTests {
 		}
 		assertTrue((new Solution(expectedPerson, expectedWeapon, expectedRoom)).equals(player.createSuggestion()));
 	}
-	
-	//disprove suggestions tests, tests 0, 1, and > 1 matching cards
-	@Test 
-	public void testDisproveSuggestion() {
-		Solution suggestion = new Solution(new Card("Testy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
-		ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
-		//test no matching cards returns null
-		assertEquals(null, player.disproveSuggestion(suggestion));
-		player.giveCard(new Card("Testy", CardType.PERSON));
-		//tests one matching card returns the card
-		assertEquals(new Card("Testy", CardType.PERSON), player.disproveSuggestion(suggestion));
-		boolean testyAppears = false;
-		boolean bananaPeelAppears = false;
-		boolean libraryAppears = false;
-		player.giveCard(new Card("Libary", CardType.ROOM));
-		player.giveCard(new Card("Banana Peel", CardType.WEAPON));
-		for (int i = 0; i < 100; ++i) {
-			if (player.disproveSuggestion(suggestion).equals(new Card("Libary", CardType.ROOM))) {
-				libraryAppears = true;
-			}
-			else if (player.disproveSuggestion(suggestion).equals(new Card("Banana Peel", CardType.WEAPON))) {
-				bananaPeelAppears = true;
-			}
-			else if (player.disproveSuggestion(suggestion).equals(new Card("Testy", CardType.PERSON))) {
-				testyAppears = true;
-			}
-		}
-		//tests randomly chosen card if > 1 matching card
-		assertTrue(testyAppears);
-		assertTrue(libraryAppears);
-		assertTrue(bananaPeelAppears);
-	}
-
 }
