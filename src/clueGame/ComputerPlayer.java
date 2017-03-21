@@ -2,7 +2,9 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 
 public class ComputerPlayer extends Player {
 	private char lastRoomChar = 0;
@@ -54,8 +56,20 @@ public class ComputerPlayer extends Player {
 	public Solution makeAccusation() {
 		return null;
 	}
+	//should only be called after a room was gotten to.
 	public Solution createSuggestion() {
-		return null;
+		Board board = Board.getInstance();
+		ArrayList<Card> persons = board.getPersons();
+		ArrayList<Card> weapons = board.getWeapons();
+		String roomName = board.getLegend().get(board.getCellAt(this.getRow(),this.getColumn()).getInitial());
+		Card room = new Card(roomName , CardType.ROOM);
+		for(Card c : this.getSeenCards()) { 
+			persons.remove(c);
+			weapons.remove(c);
+		}
+		Card person = persons.get((new Random()).nextInt(persons.size()));
+		Card weapon = persons.get((new Random()).nextInt(weapons.size()));
+		return new Solution(person,weapon,room);
 	}
 	@Override
 	public void moveTo(BoardCell b){

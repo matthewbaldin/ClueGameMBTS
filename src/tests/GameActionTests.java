@@ -163,8 +163,9 @@ public class GameActionTests {
 		assertTrue(board.checkAccusation(accusation3));
 	}
 	
+	//This test forces a single suggestion out
 	@Test
-	public void testCreateSuggestion() {
+	public void testCreateSuggestionForced() {
 		ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
 		player.moveTo(board.getCellAt(20,  21));
 		//Solution answer = board.getTheAnswer();
@@ -198,4 +199,69 @@ public class GameActionTests {
 		}
 		assertTrue(player.createSuggestion().equals(new Solution(expectedPerson, expectedWeapon, expectedRoom)));
 	}
+	//This test forces a single suggestion out
+		@Test
+		public void testCreateSuggestionRandom() {
+			ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
+			player.moveTo(board.getCellAt(20,  21));
+			//Solution answer = board.getTheAnswer();
+			ArrayList<Card> deck= board.getDeck();
+			//weapons they can see
+			ArrayList<Card> rooms = new ArrayList<Card>();
+			ArrayList<Card> persons = new ArrayList<Card>();
+			ArrayList<Card> weapons = new ArrayList<Card>();
+			for(Card c : deck){
+				switch(c.type){
+				case PERSON:
+					persons.add(c);
+					break;
+				case ROOM:
+					rooms.add(c);
+					break;
+				case WEAPON:
+					weapons.add(c);
+					break;
+				}
+			}
+			Card expectedPersonA = persons.remove(persons.size()-1);
+			Card expectedPersonB = persons.remove(persons.size()-1);
+			Card expectedWeaponA = weapons.remove(weapons.size()-1);
+			Card expectedWeaponB= weapons.remove(weapons.size()-1);
+			//player is in the library in this test
+			Card expectedRoom = new Card("Library",CardType.ROOM);
+			for(Card c : persons) {
+				player.showCard(c);
+			}
+			for(Card c : weapons) {
+				player.showCard(c);
+			}
+			boolean foundPA = false;
+			boolean foundPB = false;
+			boolean foundWA = false;
+			boolean foundWB = false;
+			boolean foundNotRoom = false;
+			for(int i = 0 ; i < 500 ; ++i){
+				Solution s = player.createSuggestion();
+				if(s.person.equals(expectedPersonA)){
+					foundPA = true;
+				}
+				else if(s.person.equals(expectedPersonB)) {
+					foundPB = true;
+				}
+				if(s.weapon.equals(expectedWeaponA)){
+					foundWA = true;
+				}
+				else if(s.weapon.equals(expectedWeaponB)) {
+					foundWB = true;
+				}
+				if(!s.room.equals(expectedRoom)){
+					foundNotRoom = true;
+				}
+			}
+			assertTrue(foundPA);
+			assertTrue(foundPB);
+			assertTrue(foundWA);
+			assertTrue(foundWB);
+			assertFalse(foundNotRoom);
+		}
 }
