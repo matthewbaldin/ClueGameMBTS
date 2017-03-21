@@ -9,5 +9,10 @@ public class Solution {
 		this.weapon = weapon;
 		this.room = room;
 	}
-	
+	public boolean equals(Solution s){
+		if(s == null) {
+			return false;
+		}
+		return this.person.equals(s.person) && this.room.equals(s.room) && this.weapon.equals(s.weapon);
+	}
 }
