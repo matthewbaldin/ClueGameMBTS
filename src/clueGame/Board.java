@@ -374,7 +374,9 @@ public class Board {
 		return null;
 	}
 	public boolean checkAccusation(Solution accusation) {
-		if(theAnswer == null) return false;
+		if(theAnswer == null) {
+			return false;
+		}
 		return this.theAnswer.equals(accusation);
 	}
 	public ArrayList<Card> getDeck(){
