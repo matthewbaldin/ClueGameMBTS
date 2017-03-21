@@ -304,8 +304,6 @@ public class GameActionTests {
 		
 		for(int i = 0 ; i < 100 ; ++i) {
 			Solution suggestion = player.createSuggestion();
-			//System.out.println(suggestion.person.name+" "+suggestion.weapon.name+" "+suggestion.room.name);
-			//System.out.println(expectedPerson.name + " " + expectedWeapon.name + " " + expectedRoom.name );
 			failedEquality |= !(new Solution(expectedPerson, expectedWeapon, expectedRoom)).equals(suggestion);
 		}
 		assertFalse(failedEquality);
@@ -345,16 +343,15 @@ public class GameActionTests {
 	@Test
 	public void testHandleSuggestion() {
 		ArrayList<ComputerPlayer> players = board.getComputerPlayers();
-		for(Player p : players) {
+		for(Player p : board.getPlayers()) {
 			p.getMyCards().clear();
 			p.getSeenCards().clear();
 		}
 		HumanPlayer human = board.getHumanPlayer();
-		human.getMyCards().clear();
-		human.getSeenCards().clear();
 		human.giveCard(new Card("Banana Peel", CardType.WEAPON));
 		players.get(0).giveCard(new Card("Library", CardType.ROOM));
 		players.get(1).giveCard(new Card("The Great Baldini", CardType.PERSON));
+		
 		//no one can disprove, expect null
 		Solution suggestion0 = new Solution(new Card("Sammy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
 		assertTrue(board.handleSuggestion(suggestion0,human) == null);
@@ -363,7 +360,7 @@ public class GameActionTests {
 		assertTrue(board.handleSuggestion(suggestion1,players.get(0)) == null);
 		//only human can disprove
 		Solution suggestion2 = new Solution(new Card("Sammy", CardType.PERSON), new Card("Banana Peel", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
-		//human is not accusser, expect card from humans hand
+		//human is not accuser, expect card from humans hand
 		assertTrue((new Card("Banana Peel", CardType.WEAPON)).equals(board.handleSuggestion(suggestion2,players.get(0))));
 		//human is accuser, only human can disprove, expect null
 		assertTrue(board.handleSuggestion(suggestion2,human) == null);
@@ -375,7 +372,7 @@ public class GameActionTests {
 		assertTrue((new Card("The Great Baldini", CardType.PERSON)).equals(board.handleSuggestion(suggestion3, players.get(0))));
 		//and we have tested all combinations to ensure the order is correct
 		//here we expect the humans card to be returned because the second CPU player calls it
-		assertTrue((new Card("Banana Peel", CardType.PERSON)).equals(board.handleSuggestion(suggestion3, players.get(1))));
+		assertTrue((new Card("Banana Peel", CardType.WEAPON)).equals(board.handleSuggestion(suggestion3, players.get(1))));
 		
 	}
 }
