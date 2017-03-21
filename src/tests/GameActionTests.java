@@ -13,8 +13,6 @@ import org.junit.Test;
 import clueGame.*;
 import static org.junit.Assert.*;
 
-import clueGame.Board;
-
 public class GameActionTests {
 
 	private static Board board;
@@ -302,32 +300,38 @@ public class GameActionTests {
 		for(Card c : weapons) {
 			player.showCard(c);
 		}
-		assertTrue((new Solution(expectedPerson, expectedWeapon, expectedRoom)).equals(player.createSuggestion()));
+		boolean failedEquality = false;
+		
+		for(int i = 0 ; i < 100 ; ++i) {
+			Solution suggestion = player.createSuggestion();
+			failedEquality |= !(new Solution(expectedPerson, expectedWeapon, expectedRoom)).equals(suggestion);
+		}
+		assertFalse(failedEquality);
 	}
 	
 	//disprove suggestions tests, tests 0, 1, and > 1 matching cards
 	@Test 
 	public void testDisproveSuggestion() {
-		Solution suggestion = new Solution(new Card("Testy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
+		Solution suggestion = new Solution(new Card("The Great Baldini", CardType.PERSON), new Card("Banana Peel", CardType.WEAPON), new Card("Library", CardType.ROOM));
 		ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
 		//test no matching cards returns null
 		assertEquals(null, player.disproveSuggestion(suggestion));
-		player.giveCard(new Card("Testy", CardType.PERSON));
+		player.giveCard(new Card("The Great Baldini", CardType.PERSON));
 		//tests one matching card returns the card
-		assertEquals(new Card("Testy", CardType.PERSON), player.disproveSuggestion(suggestion));
+		assertTrue(new Card("The Great Baldini", CardType.PERSON).equals(player.disproveSuggestion(suggestion)));
 		boolean testyAppears = false;
 		boolean bananaPeelAppears = false;
 		boolean libraryAppears = false;
-		player.giveCard(new Card("Libary", CardType.ROOM));
+		player.giveCard(new Card("Library", CardType.ROOM));
 		player.giveCard(new Card("Banana Peel", CardType.WEAPON));
 		for (int i = 0; i < 100; ++i) {
-			if (player.disproveSuggestion(suggestion).equals(new Card("Libary", CardType.ROOM))) {
+			if (player.disproveSuggestion(suggestion).equals(new Card("Library", CardType.ROOM))) {
 				libraryAppears = true;
 			}
 			else if (player.disproveSuggestion(suggestion).equals(new Card("Banana Peel", CardType.WEAPON))) {
 				bananaPeelAppears = true;
 			}
-			else if (player.disproveSuggestion(suggestion).equals(new Card("Testy", CardType.PERSON))) {
+			else if (player.disproveSuggestion(suggestion).equals(new Card("The Great Baldini", CardType.PERSON))) {
 				testyAppears = true;
 			}
 		}
@@ -335,5 +339,40 @@ public class GameActionTests {
 		assertTrue(testyAppears);
 		assertTrue(libraryAppears);
 		assertTrue(bananaPeelAppears);
+	}
+	@Test
+	public void testHandleSuggestion() {
+		ArrayList<ComputerPlayer> players = board.getComputerPlayers();
+		for(Player p : board.getPlayers()) {
+			p.getMyCards().clear();
+			p.getSeenCards().clear();
+		}
+		HumanPlayer human = board.getHumanPlayer();
+		human.giveCard(new Card("Banana Peel", CardType.WEAPON));
+		players.get(0).giveCard(new Card("Library", CardType.ROOM));
+		players.get(1).giveCard(new Card("The Great Baldini", CardType.PERSON));
+		
+		//no one can disprove, expect null
+		Solution suggestion0 = new Solution(new Card("Sammy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
+		assertTrue(board.handleSuggestion(suggestion0,human) == null);
+		//only cpu0 can disprove, and he is the accuser, so we expect null
+		Solution suggestion1 = new Solution(new Card("Sammy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Library", CardType.ROOM));
+		assertTrue(board.handleSuggestion(suggestion1,players.get(0)) == null);
+		//only human can disprove
+		Solution suggestion2 = new Solution(new Card("Sammy", CardType.PERSON), new Card("Banana Peel", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
+		//human is not accuser, expect card from humans hand
+		assertTrue((new Card("Banana Peel", CardType.WEAPON)).equals(board.handleSuggestion(suggestion2,players.get(0))));
+		//human is accuser, only human can disprove, expect null
+		assertTrue(board.handleSuggestion(suggestion2,human) == null);
+		//a suggestion that human, cpu0 and cpu1 can handle, but we expect the answer to come from cpu0
+		//because it is first
+		Solution suggestion3 = new Solution(new Card("The Great Baldini", CardType.PERSON), new Card("Banana Peel", CardType.WEAPON), new Card("Library", CardType.ROOM));
+		assertTrue((new Card("Library", CardType.ROOM)).equals(board.handleSuggestion(suggestion3, human)));
+		//and here we expect cpu1's card to be displayed
+		assertTrue((new Card("The Great Baldini", CardType.PERSON)).equals(board.handleSuggestion(suggestion3, players.get(0))));
+		//and we have tested all combinations to ensure the order is correct
+		//here we expect the humans card to be returned because the second CPU player calls it
+		assertTrue((new Card("Banana Peel", CardType.WEAPON)).equals(board.handleSuggestion(suggestion3, players.get(1))));
+		
 	}
 }

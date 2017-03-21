@@ -31,6 +31,7 @@ public class Board {
 	private ArrayList<Card> playerCards;
 	private ArrayList<Card> weaponCards;
 	private ArrayList<ComputerPlayer> cpuPlayers;
+	private ArrayList<Player> players;
 	private HumanPlayer humanPlayer;
 	private Solution theAnswer;
 	// variable used for singleton pattern
@@ -123,9 +124,12 @@ public class Board {
 	}
 
 	public void initialize() {
+		humanPlayer = null;
 		legend = new HashMap<Character, String>();
 		targets = new HashSet<BoardCell>();
 		deck = new ArrayList<Card>();
+		players = new ArrayList<Player>();
+		cpuPlayers = new ArrayList<ComputerPlayer>();
 		try {
 			loadConfigFiles();
 		} catch (FileNotFoundException e) {
@@ -323,11 +327,15 @@ public class Board {
 				throw new BadConfigFormatException("Player " + name + " is not on a walkway in " + playerConfigFile);
 			}
 			if(humanPlayer == null) { 
-				this.humanPlayer = new HumanPlayer(name,colour,row,col);
+				HumanPlayer p = new HumanPlayer(name,colour,row,col);
+				this.humanPlayer = p;
+				players.add(this.humanPlayer);
 			}
 			else
 			{
-				this.cpuPlayers.add(new ComputerPlayer(name,colour,row,col));
+				ComputerPlayer p = new ComputerPlayer(name,colour,row,col);
+				this.cpuPlayers.add(p);
+				this.players.add(p);
 			}
 		}
 		in.close();	
@@ -382,8 +390,25 @@ public class Board {
 		}
 		this.theAnswer = new Solution(person,weapon,room);
 	}
-	public Card handleSuggestion(){
+	public Card handleSuggestion(Solution suggestion, Player accuser){
+		int index = players.indexOf(accuser);
+		if(index < 0){
+			//not a valid accuser, might want to throw an error
+			return null;
+		}
 		
+		for(int i = index + 1; i!=index; ++i) {
+			if(i >= players.size()){ 
+				i -= players.size();
+				if(i == index) {
+					break;
+				}
+			}
+			Card result = players.get(i).disproveSuggestion(suggestion);
+			if(result != null) {
+				return result; 
+			}
+		}
 		return null;
 	}
 	public boolean checkAccusation(Solution accusation) {
@@ -444,6 +469,9 @@ public class Board {
 	}
 	public ArrayList<ComputerPlayer> getComputerPlayers() {
 		return this.cpuPlayers;
+	}
+	public ArrayList<Player> getPlayers() {
+		return this.players;
 	}
 	public Solution getTheAnswer() {
 		return this.theAnswer;

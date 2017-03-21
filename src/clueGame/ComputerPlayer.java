@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.Color;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -14,7 +15,25 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
-		return null;
+		ArrayList<Card> matches = new ArrayList<Card>();
+		for(Card c : this.getMyCards()) {
+			if(suggestion.person.equals(c)){
+				matches.add(c);
+			}
+			else if(suggestion.room.equals(c)){
+				matches.add(c);
+			}
+			else if(suggestion.weapon.equals(c)){
+				matches.add(c);
+			}
+		}
+		Collections.shuffle(matches);
+		if(matches.isEmpty()){
+			return null;
+		}
+		//else not needed
+		//shuffled matches to get the 0 to be random
+		return matches.get(0);
 	}
 
 	public BoardCell pickLocation(Set<BoardCell> targets) {

@@ -8,6 +8,9 @@ public class Card {
 		this.name = name;
 	}
 	public boolean equals(Card c){
+		if(c == null) {
+			return false;
+		}
 		return (this.name.equals(c.name)) && this.type == c.type;
 	}
 }
