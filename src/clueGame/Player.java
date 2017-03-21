@@ -47,4 +47,7 @@ public abstract class Player {
 		 this.column = b.getColumn();
 		 
 	}
+	public void showCard(Card shown) {
+		seenCards.add(shown);
+	}
 }

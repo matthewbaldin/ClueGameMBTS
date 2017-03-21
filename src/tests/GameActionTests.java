@@ -162,4 +162,13 @@ public class GameActionTests {
 		Solution accusation3 = new Solution(solution.person, solution.weapon, solution.room);
 		assertTrue(board.checkAccusation(accusation3));
 	}
+	
+	@Test
+	public void testCreateSuggestion() {
+		ComputerPlayer player = new ComputerPlayer("Testy", Color.BLACK, 21, 20);
+		player.moveTo(board.getCellAt(20,  21));
+		Solution answer = board.getTheAnswer();
+		
+		
+	}
 }

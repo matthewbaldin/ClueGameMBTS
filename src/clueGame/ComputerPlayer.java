@@ -51,11 +51,11 @@ public class ComputerPlayer extends Player {
 		}
 		return selectedCell;
 	}
-	public void makeAccusation() {
-		
+	public Solution makeAccusation() {
+		return null;
 	}
-	public void createSuggestion() {
-		
+	public Solution createSuggestion() {
+		return null;
 	}
 	@Override
 	public void moveTo(BoardCell b){
