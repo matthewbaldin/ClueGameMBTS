@@ -442,5 +442,5 @@ public class Board {
 	    }
 	    return color;
 	}
-
+	
 }

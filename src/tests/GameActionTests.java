@@ -76,7 +76,7 @@ public class GameActionTests {
 			}
 		}
 		//this means that room has priority, so it should be false
-		assertTrue(!case20_19);
+		assertFalse(case20_19);
 		assertTrue(case20_21);
 		assertTrue(case21_18);
 	}
@@ -108,7 +108,6 @@ public class GameActionTests {
 				fail("Invalid target selected.");
 			}
 		}
-		// this means that room has priority, so it should be false
 		assertTrue(case19_20);
 		assertTrue(case20_19);
 		assertTrue(case20_21);
@@ -141,8 +140,26 @@ public class GameActionTests {
 			}
 		}
 		//this means that room has priority, so it should be false
-		assertTrue(!case20_19);
-		assertTrue(!case20_21);
+		assertFalse(case20_19);
+		assertFalse(case20_21);
 		assertTrue(case21_18);
+	}
+	
+	//test that the accusation checker is working correctly
+	@Test
+	public void testAccusation() {
+		Solution solution = board.getTheAnswer();
+		//none match
+		Solution accusation0 = new Solution(new Card("Testy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
+		assertFalse(board.checkAccusation(accusation0));
+		//one matches
+		Solution accusation1 = new Solution(solution.person, new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
+		assertFalse(board.checkAccusation(accusation1));
+		//two match
+		Solution accusation2 = new Solution(solution.person, solution.weapon, new Card("Mezzanine", CardType.ROOM));
+		assertFalse(board.checkAccusation(accusation2));
+		//all three match, should be valid
+		Solution accusation3 = new Solution(solution.person, solution.weapon, solution.room);
+		assertTrue(board.checkAccusation(accusation3));
 	}
 }
