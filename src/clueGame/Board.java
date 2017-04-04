@@ -122,7 +122,7 @@ public class Board {
 		in.close();
 
 	}
-
+	//set up the board for usage in playing the game
 	public void initialize() {
 		humanPlayer = null;
 		legend = new HashMap<Character, String>();
