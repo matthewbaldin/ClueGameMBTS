@@ -28,7 +28,7 @@ public class ControlGUI extends JPanel {
 	private JPanel createGuessInfo() {
 		JPanel result = new JPanel();
 		guess = new JTextField("A guess consisting of a weapon, player, and room",40);
-		guess.setEditable(false);
+		guess.setEditable(true);
 		guess.setBorder(new TitledBorder(new EtchedBorder(),"Guess"));
 		guess.setToolTipText("The Guess made, if one was made");
 		result.add(guess);
@@ -48,6 +48,7 @@ public class ControlGUI extends JPanel {
 		result.add(accuse);
 		return result;
 	}
+	
 	private JPanel createPlayerAndRoll() {
 		JPanel result = new JPanel();
 		JTextField name = new JTextField("Name",20);
@@ -62,6 +63,7 @@ public class ControlGUI extends JPanel {
 		result.add(diceRoll);
 		return result;
 	}
+	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
