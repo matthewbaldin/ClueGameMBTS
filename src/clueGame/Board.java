@@ -227,7 +227,7 @@ public class Board {
 	public void findTargets(int rows, int cols, int pathLength)
 	{
 		visited.add(board[rows][cols]);
-		if(pathLength == 0||board[rows][cols].isDoorway())
+		if(pathLength == 0 || board[rows][cols].isDoorway())
 		{
 			if(visited.size() > 1){
 				targets.add(board[rows][cols]);
@@ -235,12 +235,12 @@ public class Board {
 			}
 		}
 
-		for (BoardCell x : adjMatrix.get(board[rows][cols]))
+		for (BoardCell cell : adjMatrix.get(board[rows][cols]))
 		{
-			if(!visited.contains(x))
+			if(!visited.contains(cell))
 			{
-				findTargets(x.getRow(), x.getColumn(), pathLength - 1);
-				visited.remove(x);
+				findTargets(cell.getRow(), cell.getColumn(), pathLength - 1);
+				visited.remove(cell);
 			}
 		}
 	}
