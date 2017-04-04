@@ -19,6 +19,8 @@ public class ControlGUI extends JPanel {
 	private JTextField response;
 	private JButton nextPlayer;
 	private JButton accuse;
+	private static final int WIDTH = 750;
+	private static final int HEIGHT = 200;
 	public ControlGUI() {
 		this.setLayout(new GridLayout(3,1));
 		this.add(this.createButtons());
@@ -68,7 +70,7 @@ public class ControlGUI extends JPanel {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("GUI");
-		frame.setSize(750, 200);	
+		frame.setSize(WIDTH, HEIGHT);	
 		ControlGUI gui = new ControlGUI();
 		frame.add(gui, BorderLayout.CENTER);
 		frame.setVisible(true);
