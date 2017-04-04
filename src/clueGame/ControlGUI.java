@@ -53,11 +53,13 @@ public class ControlGUI extends JPanel {
 	
 	private JPanel createPlayerAndRoll() {
 		JPanel result = new JPanel();
+		//will need to be modified when the GUI actually displays the player name for each turn
 		JTextField name = new JTextField("Name",20);
 		name.setEditable(false);
 		name.setBorder(new TitledBorder(new EtchedBorder(),"Current Player"));
 		name.setToolTipText("The name of the current player");
 		result.add(name);
+		//believe this will need to be moved
 		this.playerName = name;
 		diceRoll = new JTextField("-",3);
 		diceRoll.setEditable(false);
