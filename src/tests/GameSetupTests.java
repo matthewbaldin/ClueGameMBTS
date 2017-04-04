@@ -43,9 +43,9 @@ public class GameSetupTests {
 				System.out.println(i.getMyCards().size());
 			}
 		}
-		cards.add(board.getTheAnswer().weapon);
-		cards.add(board.getTheAnswer().room);
-		cards.add(board.getTheAnswer().person);
+		cards.add(board.getSolution().weapon);
+		cards.add(board.getSolution().room);
+		cards.add(board.getSolution().person);
 		//test that all players are dealt roughly the same number of cards
 		assertTrue(withinOne);
 		//test that all cards are dealt only once and that all cards have been dealt

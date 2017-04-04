@@ -146,7 +146,7 @@ public class GameActionTests {
 	//test that the accusation checker is working correctly
 	@Test
 	public void testAccusation() {
-		Solution solution = board.getTheAnswer();
+		Solution solution = board.getSolution();
 		//none match, all is wrong, wrong name
 		Solution accusation0 = new Solution(new Card("Testy", CardType.PERSON), new Card("Pepper Spray", CardType.WEAPON), new Card("Mezzanine", CardType.ROOM));
 		assertFalse(board.checkAccusation(accusation0));

@@ -33,7 +33,7 @@ public class Board {
 	private ArrayList<ComputerPlayer> cpuPlayers;
 	private ArrayList<Player> players;
 	private HumanPlayer humanPlayer;
-	private Solution theAnswer;
+	private Solution solution;
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
 
@@ -388,7 +388,7 @@ public class Board {
 				break;
 			}
 		}
-		this.theAnswer = new Solution(person,weapon,room);
+		this.solution = new Solution(person,weapon,room);
 	}
 	public Card handleSuggestion(Solution suggestion, Player accuser){
 		int index = players.indexOf(accuser);
@@ -412,10 +412,10 @@ public class Board {
 		return null;
 	}
 	public boolean checkAccusation(Solution accusation) {
-		if(theAnswer == null) {
+		if(solution == null) {
 			return false;
 		}
-		return this.theAnswer.equals(accusation);
+		return this.solution.equals(accusation);
 	}
 	public ArrayList<Card> getDeck(){
 		return this.deck;
@@ -434,17 +434,17 @@ public class Board {
 			boolean willDeal=true;
 			switch(c.type){
 			case PERSON:
-				if( c.equals(theAnswer.person) ) {
+				if( c.equals(solution.person) ) {
 					willDeal = false;
 				}
 				break;
 			case ROOM:
-				if( c.equals(theAnswer.room) ) {
+				if( c.equals(solution.room) ) {
 					willDeal = false;
 				}
 				break;
 			case WEAPON:
-				if( c.equals(theAnswer.weapon) ) {
+				if( c.equals(solution.weapon) ) {
 					willDeal = false;
 				}
 				break;
@@ -473,8 +473,8 @@ public class Board {
 	public ArrayList<Player> getPlayers() {
 		return this.players;
 	}
-	public Solution getTheAnswer() {
-		return this.theAnswer;
+	public Solution getSolution() {
+		return this.solution;
 	}
 	public static Color convertColor(String strColor) {
 	    Color color; 
