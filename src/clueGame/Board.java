@@ -100,8 +100,8 @@ public class Board {
 
 		numColumns=boardIns.get(0).length;
 		board = new BoardCell[numRows][numColumns];
-		for(int i=0;i<numRows;++i){
-			for(int j=0;j<numColumns;++j){
+		for(int i=0;i < numRows;++i){
+			for(int j=0;j < numColumns;++j){
 
 				if(boardIns.get(i).length != numColumns) {
 					throw new BadConfigFormatException("Incorrect number of columns: number of columns should be " + numColumns); 
@@ -229,7 +229,7 @@ public class Board {
 		visited.add(board[rows][cols]);
 		if(pathLength == 0||board[rows][cols].isDoorway())
 		{
-			if(visited.size()>1){
+			if(visited.size() > 1){
 				targets.add(board[rows][cols]);
 				return;
 			}
@@ -246,17 +246,14 @@ public class Board {
 	}
 
 	public Map<Character, String> getLegend() {
-
 		return legend;
 	}
 
 	public int getNumRows() {
-
 		return numRows;
 	}
 
 	public int getNumColumns() {
-
 		return numColumns;
 	}
 
@@ -265,12 +262,10 @@ public class Board {
 	}
 
 	public Set<BoardCell> getAdjList(int rows, int cols) {
-
 		return adjMatrix.get(board[rows][cols]);
 	}
 
 	public Set<BoardCell> getTargets() {
-		
 		return targets;
 	}
 
@@ -434,17 +429,17 @@ public class Board {
 			boolean willDeal=true;
 			switch(c.type){
 			case PERSON:
-				if( c.equals(solution.person) ) {
+				if(c.equals(solution.person) ) {
 					willDeal = false;
 				}
 				break;
 			case ROOM:
-				if( c.equals(solution.room) ) {
+				if(c.equals(solution.room) ) {
 					willDeal = false;
 				}
 				break;
 			case WEAPON:
-				if( c.equals(solution.weapon) ) {
+				if(c.equals(solution.weapon) ) {
 					willDeal = false;
 				}
 				break;
