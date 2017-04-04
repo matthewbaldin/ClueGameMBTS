@@ -14,7 +14,7 @@ public class HumanPlayer extends Player {
 	public Card disproveSuggestion(Solution suggestion) {
 		//The below is placeholder code from ComputerPlayer, and will not be in the final version. /*
 		ArrayList<Card> matches = new ArrayList<Card>();
-		for(Card c : this.getMyCards()) {
+		for(Card c : this.getHeldCards()) {
 			if(suggestion.person.equals(c)){
 				matches.add(c);
 			}

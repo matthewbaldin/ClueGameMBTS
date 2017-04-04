@@ -16,7 +16,7 @@ public class ComputerPlayer extends Player {
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
 		ArrayList<Card> matches = new ArrayList<Card>();
-		for(Card c : this.getMyCards()) {
+		for(Card c : this.getHeldCards()) {
 			if(suggestion.person.equals(c)){
 				matches.add(c);
 			}

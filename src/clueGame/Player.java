@@ -9,10 +9,10 @@ public abstract class Player {
 	private int row;
 	private int column;
 	private Color color;
-	private Set<Card> myCards;
+	private Set<Card> heldCards;
 	private Set<Card> seenCards;
 	public Player(String name, Color color, int row, int col) {
-		this.myCards = new HashSet<Card>();
+		this.heldCards = new HashSet<Card>();
 		this.seenCards = new HashSet<Card>();
 		this.playerName = name;
 		this.color = color;
@@ -21,8 +21,8 @@ public abstract class Player {
 	}
 	public abstract Card disproveSuggestion(Solution suggestion);
 	
-	public Set<Card> getMyCards() {
-		return myCards;
+	public Set<Card> getHeldCards() {
+		return heldCards;
 	}
 	public Set<Card> getSeenCards() {
 		return seenCards;
@@ -40,7 +40,7 @@ public abstract class Player {
 		return this.column;
 	}
 	public void giveCard(Card c){
-		this.myCards.add(c);
+		this.heldCards.add(c);
 		this.seenCards.add(c);
 	}
 	public void moveTo(BoardCell b){

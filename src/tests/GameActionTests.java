@@ -344,7 +344,7 @@ public class GameActionTests {
 	public void testHandleSuggestion() {
 		ArrayList<ComputerPlayer> players = board.getComputerPlayers();
 		for(Player p : board.getPlayers()) {
-			p.getMyCards().clear();
+			p.getHeldCards().clear();
 			p.getSeenCards().clear();
 		}
 		HumanPlayer human = board.getHumanPlayer();
