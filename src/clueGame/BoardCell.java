@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Graphics;
+
 public class BoardCell{
 	
 	private int column, row;
@@ -93,6 +95,9 @@ public class BoardCell{
 	
 	public DoorDirection getDoorDirection() {
 		return this.DoorDirection;
+	}
+	public void draw(Graphics g) {
+		
 	}
 
 }

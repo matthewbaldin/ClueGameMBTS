@@ -19,8 +19,6 @@ public class ControlGUI extends JPanel {
 	private JTextField response;
 	private JButton nextPlayer;
 	private JButton accuse;
-	private static final int WIDTH = 750;
-	private static final int HEIGHT = 200;
 	public ControlGUI() {
 		this.setLayout(new GridLayout(3,1));
 		this.add(this.createButtons());
@@ -66,15 +64,5 @@ public class ControlGUI extends JPanel {
 		diceRoll.setBorder(new TitledBorder(new EtchedBorder(),"Roll"));
 		result.add(diceRoll);
 		return result;
-	}
-	
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("GUI");
-		frame.setSize(WIDTH, HEIGHT);	
-		ControlGUI gui = new ControlGUI();
-		frame.add(gui, BorderLayout.CENTER);
-		frame.setVisible(true);
 	}
 }

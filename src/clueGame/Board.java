@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +15,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Board {
+import javax.swing.JPanel;
+
+public class Board extends JPanel {
 	private int numRows;
 	private int numColumns;
 	private static final int MAX_BOARD_SIZE = 50;
@@ -44,6 +47,17 @@ public class Board {
 	public static Board getInstance() {
 		return theInstance;
 	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.setColor(Color.yellow);
+		for (int i = 0; i < numRows; ++i) {
+			for (int j = 0; j < numColumns; ++j) {
+				board[i][j].draw(g);
+			}
+		}
+	}
+	
 	@Deprecated
 	public void setConfigFiles(String boardCF, String roomCF) {
 		setConfigFiles(boardCF,roomCF,null,null);
