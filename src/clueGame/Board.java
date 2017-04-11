@@ -35,7 +35,7 @@ public class Board extends JPanel {
 	private static ArrayList<Card> weaponCards;
 	private ArrayList<ComputerPlayer> cpuPlayers;
 	private static ArrayList<Player> players;
-	private HumanPlayer humanPlayer;
+	private static HumanPlayer humanPlayer;
 	private Solution solution;
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -494,8 +494,8 @@ public class Board extends JPanel {
 			}
 		}
 	}
-	public HumanPlayer getHumanPlayer() {
-		return this.humanPlayer;
+	public static HumanPlayer getHumanPlayer() {
+		return humanPlayer;
 	}
 	public ArrayList<ComputerPlayer> getComputerPlayers() {
 		return this.cpuPlayers;
