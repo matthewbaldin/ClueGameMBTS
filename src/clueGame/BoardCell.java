@@ -8,6 +8,20 @@ public class BoardCell{
 	private int column, row;
 	private char initial;
 	private DoorDirection DoorDirection;
+	private boolean isName = false;
+	private String name;
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String s) {
+		name = s;
+	}
+	
+	public void setIsName(boolean b) {
+		isName = b;
+	}
 	
 	public BoardCell(int row, int col) {
 		super();
@@ -100,23 +114,27 @@ public class BoardCell{
 	public void draw(Graphics g) {
 		if (initial == 'W') {
 			g.setColor(Color.BLACK);
-			g.drawRect(column * 37, row * 37, 37, 37);
+			g.drawRect(column * 29, row * 29, 29, 29);
 		}
 		if (isDoorway()) {
 			switch(DoorDirection) {
 			case UP:
-				g.fillRect((column) * 37, row * 37, 37, (int)((double)37 * 0.2));
+				g.fillRect((column) * 29, row * 29, 29, (int)((double)29 * 0.2));
 				break;
 			case DOWN:
-				g.fillRect((column) * 37, (row + 1) * 37, 37, -(int)((double)37 * 0.2));
+				g.fillRect((column) * 29, (row + 1) * 29, 29, -(int)((double)29 * 0.2));
 				break;
 			case RIGHT:
-				g.fillRect((column + 1) * 37, row * 37, -(int)((double)37 * 0.2), 37);
+				g.fillRect((column + 1) * 29, row * 29, -(int)((double)29 * 0.2), 29);
 				break;
 			case LEFT:
-				g.fillRect((column) * 37, row * 37, (int)((double)37 * 0.2), 37);
+				g.fillRect((column) * 29, row * 29, (int)((double)29 * 0.2), 29);
 				break;
 			}
+		}
+		if (isName) {
+			g.setColor(Color.DARK_GRAY);
+			g.drawString(name, column * 29, row * 29);
 		}
 	}
 
