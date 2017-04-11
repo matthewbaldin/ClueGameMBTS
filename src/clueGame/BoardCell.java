@@ -102,7 +102,22 @@ public class BoardCell{
 			g.setColor(Color.BLACK);
 			g.drawRect(column * 37, row * 37, 37, 37);
 		}
-		
+		if (isDoorway()) {
+			switch(DoorDirection) {
+			case UP:
+				g.fillRect((column) * 37, row * 37, 37, (int)((double)37 * 0.2));
+				break;
+			case DOWN:
+				g.fillRect((column) * 37, (row + 1) * 37, 37, -(int)((double)37 * 0.2));
+				break;
+			case RIGHT:
+				g.fillRect((column + 1) * 37, row * 37, -(int)((double)37 * 0.2), 37);
+				break;
+			case LEFT:
+				g.fillRect((column) * 37, row * 37, (int)((double)37 * 0.2), 37);
+				break;
+			}
+		}
 	}
 
 }
