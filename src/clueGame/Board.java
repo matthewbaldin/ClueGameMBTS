@@ -33,9 +33,6 @@ public class Board extends JPanel {
 	private ArrayList<Card> deck;
 	private ArrayList<Card> playerCards;
 	private static ArrayList<Card> weaponCards;
-	public static ArrayList<Card> getWeaponCards() {
-		return weaponCards;
-	}
 	private ArrayList<ComputerPlayer> cpuPlayers;
 	private static ArrayList<Player> players;
 	private HumanPlayer humanPlayer;
@@ -51,12 +48,19 @@ public class Board extends JPanel {
 		return theInstance;
 	}
 	
+	public static ArrayList<Card> getWeaponCards() {
+		return weaponCards;
+	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		for (int i = 0; i < numRows; ++i) {
 			for (int j = 0; j < numColumns; ++j) {
 				board[i][j].draw(g);
 			}
+		}
+		for (Player p : players) {
+			p.draw(g);
 		}
 	}
 	

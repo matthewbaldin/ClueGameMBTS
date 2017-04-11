@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,5 +51,9 @@ public abstract class Player {
 	}
 	public void showCard(Card shown) {
 		seenCards.add(shown);
+	}
+	public void draw(Graphics g) {
+		g.setColor(this.getColor());
+		g.fillRect(this.getRow() * 29, this.getColumn() * 29, 29, 29);
 	}
 }
