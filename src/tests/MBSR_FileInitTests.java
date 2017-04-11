@@ -74,13 +74,13 @@ private static Board board;
 				if (cell.isDoorway())
 					numDoors++;
 			}
-		Assert.assertEquals(30, numDoors);
+		Assert.assertEquals(29, numDoors);
 	}
 
 	@Test
 	public void testRoomInitials() {
 		assertEquals('M', board.getCellAt(0, 0).getInitial());
-		assertEquals('U', board.getCellAt(5, 4).getInitial());
+		assertEquals('D', board.getCellAt(5, 4).getInitial());
 		assertEquals('P', board.getCellAt(10, 5).getInitial());
 
 		assertEquals('L', board.getCellAt(21, 22).getInitial());
@@ -88,7 +88,6 @@ private static Board board;
 
 		assertEquals('W', board.getCellAt(10, 4).getInitial());
 
-		assertEquals('D', board.getCellAt(13,11).getInitial());
+		assertEquals('U', board.getCellAt(13,11).getInitial());
 	}
-
 }
