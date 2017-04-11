@@ -22,7 +22,7 @@ public class Board extends JPanel {
 	private int numColumns;
 	private static final int MAX_BOARD_SIZE = 50;
 	private BoardCell[][] board;
-	private Map<Character, String> legend;
+	private static Map<Character, String> legend;
 	private Map<BoardCell, Set<BoardCell>> adjMatrix = new HashMap<BoardCell, Set<BoardCell>>();
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
@@ -32,14 +32,17 @@ public class Board extends JPanel {
 	private String weaponConfigFile;
 	private ArrayList<Card> deck;
 	private ArrayList<Card> playerCards;
-	private ArrayList<Card> weaponCards;
+	private static ArrayList<Card> weaponCards;
+	public static ArrayList<Card> getWeaponCards() {
+		return weaponCards;
+	}
 	private ArrayList<ComputerPlayer> cpuPlayers;
-	private ArrayList<Player> players;
+	private static ArrayList<Player> players;
 	private HumanPlayer humanPlayer;
 	private Solution solution;
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
-
+	
 	// ctor is private to ensure only one can be created
 	private Board() {}
 
@@ -273,7 +276,7 @@ public class Board extends JPanel {
 		}
 	}
 
-	public Map<Character, String> getLegend() {
+	public static Map<Character, String> getLegend() {
 		return legend;
 	}
 
@@ -493,8 +496,8 @@ public class Board extends JPanel {
 	public ArrayList<ComputerPlayer> getComputerPlayers() {
 		return this.cpuPlayers;
 	}
-	public ArrayList<Player> getPlayers() {
-		return this.players;
+	public static ArrayList<Player> getPlayers() {
+		return players;
 	}
 	public Solution getSolution() {
 		return this.solution;

@@ -63,7 +63,9 @@ public class ClueGame extends JFrame {
 		JMenuItem menuItem = new JMenuItem("Detective Notes");
 		class MenuItemListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				
+				DetectiveNotes menuOp=new DetectiveNotes();
+				menuOp.setSize(800,800);
+				menuOp.setVisible(true);
 			}
 		}
 		menuItem.addActionListener(new MenuItemListener());
