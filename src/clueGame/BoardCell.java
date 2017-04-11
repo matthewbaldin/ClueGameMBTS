@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class BoardCell{
@@ -97,6 +98,10 @@ public class BoardCell{
 		return this.DoorDirection;
 	}
 	public void draw(Graphics g) {
+		if (initial == 'W') {
+			g.setColor(Color.BLACK);
+			g.drawRect(column * 37, row * 37, 37, 37);
+		}
 		
 	}
 
