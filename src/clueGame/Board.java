@@ -122,7 +122,13 @@ public class Board extends JPanel {
 
 				String initHold=boardIns.get(i)[j];
 				if(initHold.length()>1){
+					if (initHold.charAt(1) == 'N') {
+						board[i][j]=new BoardCell(i,j,initHold.charAt(0));
+						board[i][j].setIsName(true);
+					}
+					else {
 					board[i][j]=new BoardCell(i,j,initHold.charAt(0),initHold.charAt(1));
+					}
 				}
 				else{
 					if(!legend.containsKey(initHold.charAt(0))) {
@@ -133,8 +139,16 @@ public class Board extends JPanel {
 			}
 		}
 		in.close();
-
 	}
+	
+	private void getCellNames() {
+		for (int i = 0; i < numRows; ++i) {
+			for (int j = 0; j < numColumns; ++j) {
+				board[i][j].setName(legend.get(board[i][j].getInitial()));
+			}
+		}
+	}
+	
 	//set up the board for usage in playing the game
 	public void initialize() {
 		humanPlayer = null;
@@ -227,6 +241,7 @@ public class Board extends JPanel {
 				adjMatrix.put(board[i][j], adjList);
 			}
 		}
+		getCellNames();
 	}
 
 	// Find potential targets for selected BoardCell
