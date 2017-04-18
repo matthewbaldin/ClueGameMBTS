@@ -10,6 +10,11 @@ public class BoardCell{
 	private DoorDirection DoorDirection;
 	private boolean isName = false;
 	private String name;
+	private boolean highlighted = false;
+	
+	public void setHighlighted(boolean b) {
+		highlighted = b;
+	}
 	
 	public String getName() {
 		return name;
@@ -112,6 +117,9 @@ public class BoardCell{
 		return this.DoorDirection;
 	}
 	public void draw(Graphics g) {
+		if (highlighted) {
+			g.setColor(Color.YELLOW);
+		}
 		if (initial == 'W') {
 			g.setColor(Color.BLACK);
 			g.drawRect(column * 29, row * 29, 29, 29);

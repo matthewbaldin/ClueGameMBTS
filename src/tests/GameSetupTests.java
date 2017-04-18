@@ -59,8 +59,8 @@ public class GameSetupTests {
 		//assert player has correct name, color, and starting location
 		assertEquals("Mr. Samuel", board.getHumanPlayer().getPlayerName());
 		assertEquals(new Color(255, 255, 255), board.getHumanPlayer().getColor());
-		assertEquals(4, board.getHumanPlayer().getRow());
-		assertEquals(3, board.getHumanPlayer().getColumn());
+		assertEquals(12, board.getHumanPlayer().getRow());
+		assertEquals(8, board.getHumanPlayer().getColumn());
 		//assert first CPU has correct name, color, and starting location
 		ArrayList<ComputerPlayer> cpus = board.getComputerPlayers();
 		ComputerPlayer firstComputerPlayer = cpus.get(0);
@@ -72,7 +72,7 @@ public class GameSetupTests {
 		//test that second CPU has correct name, color, and starting location
 		assertEquals("Erno Rubik", lastComputerPlayer.getPlayerName());
 		assertEquals(new Color(255, 0, 0), lastComputerPlayer.getColor());
-		assertEquals(10, lastComputerPlayer.getRow());
+		assertEquals(8, lastComputerPlayer.getRow());
 		assertEquals(18, lastComputerPlayer.getColumn());
 	}
 	@Test

@@ -24,6 +24,7 @@ public class ClueGame extends JFrame {
 	private JMenuBar menuBar;
 	private static Board board;
 	private static final String NAME = "Clue Game";
+	private int currentPlayer = 0;
 	//initialize the board and the game window
 	public ClueGame() {
 		
@@ -60,16 +61,19 @@ public class ClueGame extends JFrame {
 				a = new JTextField(c.name, c.name.length());
 				panel.add(a);
 				a.setBorder(new TitledBorder(new EtchedBorder(),"Person"));
+				a.setEditable(false);
 			}
 			if(c.type.equals(CardType.ROOM)){
 				b = new JTextField(c.name, c.name.length());
 				panel.add(b);
 				b.setBorder(new TitledBorder(new EtchedBorder(),"Room"));
+				b.setEditable(false);
 			}
 			if(c.type.equals(CardType.WEAPON)){
 				d = new JTextField(c.name, c.name.length());
 				panel.add(d);
 				d.setBorder(new TitledBorder(new EtchedBorder(),"Weapon"));
+				d.setEditable(false);
 			}
 			
 		}
@@ -113,4 +117,8 @@ public class ClueGame extends JFrame {
 		ClueGame game = new ClueGame();
 		JOptionPane.showMessageDialog(game, "You are Mr. Samuel, press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
+	public void doTurns() {
+		
+	}
+	
 }

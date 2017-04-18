@@ -64,6 +64,14 @@ public class Board extends JPanel {
 		}
 	}
 	
+	public void highlight() {
+		if(targets != null) {
+			for (BoardCell a : targets) {
+				a.setHighlighted(true);
+			}
+		}
+	}
+	
 	@Deprecated
 	public void setConfigFiles(String boardCF, String roomCF) {
 		setConfigFiles(boardCF,roomCF,null,null);

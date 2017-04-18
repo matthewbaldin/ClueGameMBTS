@@ -1,6 +1,6 @@
 Mr. Samuel
 FFFFFF
-4 3
+12 8
 The Great Baldini
 000000
 13 4
@@ -12,7 +12,7 @@ Whomever
 13 13
 The Dog
 0000FF
-9 11
+4 4
 Erno Rubik
 FF0000
-10 18
+8 18
