@@ -118,7 +118,9 @@ public class ClueGame extends JFrame {
 		JOptionPane.showMessageDialog(game, "You are Mr. Samuel, press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void doTurns() {
-		
+		if (currentPlayer == Board.getPlayers().size()) {
+			currentPlayer = 0;
+		}
 	}
 	
 }

@@ -267,6 +267,14 @@ public class Board extends JPanel {
 		
 	}
 	
+	public void removeHighlights() {
+		for (int i = 0; i < numRows; ++i) {
+			for (int j = 0; j < numColumns; ++j) {
+				board[i][j].setHighlighted(false);
+			}
+		}
+	}
+	
 	public void findTargets(int rows, int cols, int pathLength)
 	{
 		visited.add(board[rows][cols]);
