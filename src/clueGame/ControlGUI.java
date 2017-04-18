@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,9 +23,9 @@ public class ControlGUI extends JPanel {
 	private JButton nextPlayer;
 	private JButton accuse;
 	
-	public ControlGUI() {
+	public ControlGUI(ClueGame game) {
 		this.setLayout(new GridLayout(3,1));
-		this.add(this.createButtons());
+		this.add(this.createButtons(game));
 		this.add(this.createPlayerAndRoll());
 		this.add(this.createGuessInfo());
 	}
@@ -41,11 +42,11 @@ public class ControlGUI extends JPanel {
 		result.add(response);
 		return result;
 	}
-	private JPanel createButtons() {
+	private JPanel createButtons(ClueGame game) {
 		JPanel result = new JPanel();
 		nextPlayer = new JButton("Next player");
 		nextPlayer.setToolTipText("Goes to the next player's turn");
-		nextPlayer.addActionListener(new ButtonListener());
+		nextPlayer.addActionListener(new ButtonListener(game));
 		accuse = new JButton("Make an accusation");
 		accuse.setToolTipText("Allows the making of an accusation");
 		result.add(nextPlayer);
@@ -70,11 +71,20 @@ public class ControlGUI extends JPanel {
 		return result;
 	}
 	
-	public class ButtonListener implements ActionListener{
+	public class ButtonListener implements ActionListener {
+		ClueGame game;
+		ButtonListener(ClueGame game) {
+			this.game = game;
+		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "Next player") {
-				System.out.println("Test");
+				Random rand = new Random();
+				int roll = rand.nextInt(6) + 1;
+				game.doTurns(roll);
+				diceRoll.setText(Integer.toString(roll));
+				playerName.setText(game.getBoard().getPlayers().get(game.getCurrentPlayer()).getPlayerName());
+				game.repaint();
 			}
 		}
 	}

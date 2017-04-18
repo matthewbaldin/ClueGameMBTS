@@ -97,4 +97,9 @@ public class ComputerPlayer extends Player {
 			this.lastRoomChar = b.getInitial();
 		}
 	}
+	public void move(Board board, int roll, ClueGame game) {
+		board.calcTargets(this.getRow(), this.getColumn(), roll);
+		moveTo(pickLocation(board.getTargets()));
+		game.repaint();
+	}
 }

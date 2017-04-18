@@ -56,4 +56,8 @@ public abstract class Player {
 		g.setColor(this.getColor());
 		g.fillRect(this.getRow() * 29, this.getColumn() * 29, 29, 29);
 	}
+	//purely abstract
+	public void move(Board board, int roll, ClueGame game) {
+		
+	}
 }

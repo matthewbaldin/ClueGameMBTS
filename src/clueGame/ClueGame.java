@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import java.util.Set;
 
 import javax.swing.JComboBox;
@@ -24,7 +25,7 @@ public class ClueGame extends JFrame {
 	private JMenuBar menuBar;
 	private static Board board;
 	private static final String NAME = "Clue Game";
-	private int currentPlayer = 0;
+	private int currentPlayer = -1;
 	//initialize the board and the game window
 	public ClueGame() {
 		
@@ -36,7 +37,7 @@ public class ClueGame extends JFrame {
 		this.setTitle(NAME);
 		this.setSize(board.getNumRows() * 37 + 200, board.getNumColumns() * 37);
 		
-		gui = new ControlGUI();
+		gui = new ControlGUI(this);
 		this.add(gui, BorderLayout.SOUTH);
 		this.add(board, BorderLayout.CENTER);
 		
@@ -47,6 +48,14 @@ public class ClueGame extends JFrame {
 		this.add(createMyCards(), BorderLayout.EAST);
 		
 		this.setVisible(true);
+	}
+	
+	public Board getBoard() {
+		return board;
+	}
+	
+	public int getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	private JPanel createMyCards() {
@@ -117,7 +126,7 @@ public class ClueGame extends JFrame {
 		ClueGame game = new ClueGame();
 		JOptionPane.showMessageDialog(game, "You are Mr. Samuel, press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
-	public void doTurns() {
+	public void doTurns(int roll) {
 		if (!board.getHumanFinished()) {
 			JOptionPane.showMessageDialog(this, "Your turn has not ended.", "Error", JOptionPane.INFORMATION_MESSAGE);
 			return;
@@ -128,7 +137,7 @@ public class ClueGame extends JFrame {
 				currentPlayer = 0;
 			}
 			this.board.removeHighlights();
-			
+			board.getPlayers().get(currentPlayer).move(board, roll, this);
 		}
 	}
 }

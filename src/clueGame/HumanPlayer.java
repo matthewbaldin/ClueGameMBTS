@@ -36,7 +36,7 @@ public class HumanPlayer extends Player {
 	}
 	public void move(Board board, int roll, ClueGame game) {
 		board.humanFinished = false;
-		board.calcTargets(this.getRow(), this.getColumn(), roll);
+		board.calcTargets(this.getColumn(), this.getRow(), roll);
 		board.highlight();
 		game.repaint();
 	}

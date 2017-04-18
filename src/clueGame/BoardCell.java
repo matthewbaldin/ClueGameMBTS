@@ -13,9 +13,16 @@ public class BoardCell{
 	private String name;
 	private boolean highlighted = false;
 	
-	public boolean clicked(int r, int c, int x, int y) {
-		Rectangle rectangle = new Rectangle(c * column, r * row, column, row);
-		return rectangle.contains(x, y);
+	public void setColumn(int a) {
+		column = a;
+	}
+	
+	public void setRow(int a) {
+		row = a;
+	}
+	
+	public boolean clicked(int x, int y) {
+		return (x / 29) == column && (y / 29) == row;
 	}
 	
 	public void setHighlighted(boolean b) {
@@ -123,12 +130,13 @@ public class BoardCell{
 		return this.DoorDirection;
 	}
 	public void draw(Graphics g) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.BLUE);
 		if (highlighted) {
 			g.setColor(Color.YELLOW);
+			g.drawRect(column * 29, row * 29, 29, 29);
 		}
-		if (initial == 'W') {
-			//g.setColor(Color.BLACK);
+		else if (initial == 'W') {
+			g.setColor(Color.DARK_GRAY);
 			g.drawRect(column * 29, row * 29, 29, 29);
 		}
 		if (isDoorway()) {
