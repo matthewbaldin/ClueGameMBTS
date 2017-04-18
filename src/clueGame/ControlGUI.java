@@ -3,6 +3,8 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +21,7 @@ public class ControlGUI extends JPanel {
 	private JTextField response;
 	private JButton nextPlayer;
 	private JButton accuse;
+	
 	public ControlGUI() {
 		this.setLayout(new GridLayout(3,1));
 		this.add(this.createButtons());
@@ -42,6 +45,7 @@ public class ControlGUI extends JPanel {
 		JPanel result = new JPanel();
 		nextPlayer = new JButton("Next player");
 		nextPlayer.setToolTipText("Goes to the next player's turn");
+		nextPlayer.addActionListener(new ButtonListener());
 		accuse = new JButton("Make an accusation");
 		accuse.setToolTipText("Allows the making of an accusation");
 		result.add(nextPlayer);
@@ -65,4 +69,14 @@ public class ControlGUI extends JPanel {
 		result.add(diceRoll);
 		return result;
 	}
+	
+	public class ButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getActionCommand() == "Next player") {
+				System.out.println("Test");
+			}
+		}
+	}
+	
 }

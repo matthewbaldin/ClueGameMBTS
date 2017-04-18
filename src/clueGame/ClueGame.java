@@ -118,9 +118,17 @@ public class ClueGame extends JFrame {
 		JOptionPane.showMessageDialog(game, "You are Mr. Samuel, press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void doTurns() {
-		if (currentPlayer == Board.getPlayers().size()) {
-			currentPlayer = 0;
+		if (!board.getHumanFinished()) {
+			JOptionPane.showMessageDialog(this, "Your turn has not ended.", "Error", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		else {
+			currentPlayer = currentPlayer + 1;
+			if (currentPlayer >= Board.getPlayers().size()) {
+				currentPlayer = 0;
+			}
+			this.board.removeHighlights();
+			
 		}
 	}
-	
 }

@@ -34,5 +34,10 @@ public class HumanPlayer extends Player {
 		return matches.get(0);
 		//*/
 	}
-
+	public void move(Board board, int roll, ClueGame game) {
+		board.humanFinished = false;
+		board.calcTargets(this.getRow(), this.getColumn(), roll);
+		board.highlight();
+		game.repaint();
+	}
 }

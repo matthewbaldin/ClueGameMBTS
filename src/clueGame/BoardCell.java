@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class BoardCell{
 	
@@ -11,6 +12,11 @@ public class BoardCell{
 	private boolean isName = false;
 	private String name;
 	private boolean highlighted = false;
+	
+	public boolean clicked(int r, int c, int x, int y) {
+		Rectangle rectangle = new Rectangle(c * column, r * row, column, row);
+		return rectangle.contains(x, y);
+	}
 	
 	public void setHighlighted(boolean b) {
 		highlighted = b;
@@ -117,14 +123,16 @@ public class BoardCell{
 		return this.DoorDirection;
 	}
 	public void draw(Graphics g) {
+		g.setColor(Color.BLACK);
 		if (highlighted) {
 			g.setColor(Color.YELLOW);
 		}
 		if (initial == 'W') {
-			g.setColor(Color.BLACK);
+			//g.setColor(Color.BLACK);
 			g.drawRect(column * 29, row * 29, 29, 29);
 		}
 		if (isDoorway()) {
+			g.setColor(Color.BLACK);
 			switch(DoorDirection) {
 			case UP:
 				g.fillRect((column) * 29, row * 29, 29, (int)((double)29 * 0.2));
