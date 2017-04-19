@@ -133,9 +133,9 @@ public class BoardCell{
 		g.setColor(Color.BLUE);
 		if (highlighted) {
 			g.setColor(Color.YELLOW);
-			g.drawRect(column * 29, row * 29, 29, 29);
+			g.fillRect(column * 29, row * 29, 29, 29);
 		}
-		else if (initial == 'W') {
+		 if (initial == 'W') {
 			g.setColor(Color.DARK_GRAY);
 			g.drawRect(column * 29, row * 29, 29, 29);
 		}

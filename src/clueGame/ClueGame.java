@@ -25,9 +25,13 @@ public class ClueGame extends JFrame {
 	private JMenuBar menuBar;
 	private static Board board;
 	private static final String NAME = "Clue Game";
-	private int currentPlayer = -1;
+	public static int currentPlayer = -1;
+	private static ClueGame theInstance = new ClueGame();
 	//initialize the board and the game window
-	public ClueGame() {
+	public static ClueGame getInstance(){
+		return theInstance;
+	}
+	private ClueGame() {
 		
 		board = Board.getInstance();
 		board.setConfigFiles("MBSR_ClueLayout.csv", "MBSR_ClueLegend.txt","MBSR_test_players.txt","MBSR_test_weapons.txt");
@@ -121,9 +125,9 @@ public class ClueGame extends JFrame {
 		menuItem.addActionListener(new MenuItemListener());
 		return menuItem;
 	}
-
+	
 	public static void main(String[] args) {
-		ClueGame game = new ClueGame();
+		ClueGame game = theInstance;
 		JOptionPane.showMessageDialog(game, "You are Mr. Samuel, press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void doTurns(int roll) {

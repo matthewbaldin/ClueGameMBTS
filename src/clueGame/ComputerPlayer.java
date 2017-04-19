@@ -2,6 +2,9 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.Set;
+
+import javax.swing.JOptionPane;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -98,8 +101,23 @@ public class ComputerPlayer extends Player {
 		}
 	}
 	public void move(Board board, int roll, ClueGame game) {
+		if(board.getPrevious() != null) {
+			if(board.getResponse() == null) {
+				if (board.checkAccusation(board.getPrevious())) {
+					JOptionPane.showMessageDialog(Board.getInstance(), this.getPlayerName() + " is correct, they win. The solution was " + board.getSolution());
+					ClueGame.getInstance().dispose();
+				}
+			}
+		}
+		board.setPrevious(null);
+		board.setResponse(null);
 		board.calcTargets(this.getRow(), this.getColumn(), roll);
-		moveTo(pickLocation(board.getTargets()));
+		BoardCell cell = pickLocation(board.getTargets());
+		moveTo(cell);
 		game.repaint();
+		if(cell.isRoom()) {
+			Solution suggestion = createSuggestion();
+			board.handleSuggestion(suggestion, board.getPlayers().get(ClueGame.currentPlayer));
+		}
 	}
 }

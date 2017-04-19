@@ -15,4 +15,9 @@ public class Solution {
 		}
 		return this.person.equals(s.person) && this.room.equals(s.room) && this.weapon.equals(s.weapon);
 	}
+	@Override
+	public String toString() {
+		String s = person + " in the " + room + " with the " + weapon + ".";
+		return s;
+	}
 }

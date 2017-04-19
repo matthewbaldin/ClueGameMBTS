@@ -10,33 +10,33 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import clueGame.ControlGUI.ButtonListener;
+
 public class DetectiveNotes extends JDialog{
 
 	public DetectiveNotes() {
-		setLayout(new GridLayout(4,2));
-		
+		setLayout(new GridLayout(3,2));
 		add(addPeople());
 		add(addPersonGuess());
 		add(addRooms());
 		add(addRoomGuess());
 		add(addWeapons());
 		add(addWeaponGuess());
-		
 	}
 	private JPanel addPeople()
 	{
 		JPanel panel= new JPanel();
+		panel.setLayout(new GridLayout(0,2));
 		for(Player p:Board.getPlayers())
 		{
 			JCheckBox person=new JCheckBox(p.getPlayerName());
 			panel.add(person);
-			
 		}
-		
 		panel.setBorder(new TitledBorder(new EtchedBorder(),"People"));
 		return panel;
 	}
@@ -46,6 +46,7 @@ public class DetectiveNotes extends JDialog{
 		JPanel panel = new JPanel();
 
 		JComboBox<String> people = new JComboBox<String>();
+		panel.setLayout(new GridLayout(1, 2));
 		people.addItem("Don't Know");
 		for (Player p : Board.getPlayers()){
 			people.addItem(p.getPlayerName());
@@ -72,7 +73,7 @@ public class DetectiveNotes extends JDialog{
 	private JPanel addRoomGuess()
 	{
 		JPanel panel=new JPanel();
-		panel.setLayout(new GridLayout(0,2));
+		panel.setLayout(new GridLayout(1,2));
 		JComboBox<String> rooms = new JComboBox<String>();
 		rooms.addItem("Don't Know");
 		for (char c : Board.getLegend().keySet()) {
@@ -99,7 +100,7 @@ public class DetectiveNotes extends JDialog{
 	private JPanel addWeaponGuess()
 	{
 		JPanel panel =new JPanel();
-		panel.setLayout(new GridLayout(0,2));
+		panel.setLayout(new GridLayout(1,2));
 		JComboBox<String> weapons=new JComboBox<String>();
 		weapons.addItem("Don't Know");
 		for(Card card: Board.getWeaponCards())
@@ -110,5 +111,4 @@ public class DetectiveNotes extends JDialog{
 		panel.setBorder(new TitledBorder(new EtchedBorder(),"WeaponGuess"));
 		return panel;
 	}
-
 }

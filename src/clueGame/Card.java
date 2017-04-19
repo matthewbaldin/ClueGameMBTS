@@ -13,4 +13,8 @@ public class Card {
 		}
 		return (this.name.equals(c.name)) && this.type == c.type;
 	}
+	@Override
+	public String toString() {
+		return name;
+	}
 }

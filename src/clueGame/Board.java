@@ -46,6 +46,25 @@ public class Board extends JPanel {
 	// variable used for singleton pattern
 	private static Board theInstance = new Board();
 	protected boolean humanFinished = true;
+	private boolean gameOver = false;
+	private Solution previous;
+	private Card response;
+	
+	public Solution getPrevious() {
+		return previous;
+	}
+	
+	public void setPrevious(Solution previous) {
+		this.previous = previous;
+	}
+	
+	public void setResponse(Card response) {
+		this.response = response;
+	}
+	
+	public Card getResponse() {
+		return response;
+	}
 	
 	// ctor is private to ensure only one can be created
 	private Board() {}
@@ -53,6 +72,14 @@ public class Board extends JPanel {
 	// this method returns the only Board
 	public static Board getInstance() {
 		return theInstance;
+	}
+	
+	public boolean getGameOver() {
+		return gameOver;
+	}
+	
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
 	}
 	
 	public boolean getHumanFinished() {
@@ -177,7 +204,7 @@ public class Board extends JPanel {
 	
 	//set up the board for usage in playing the game
 	public void initialize() {
-		this.addMouseListener(new BoardListener());
+		this.addMouseListener(new BoardListener(this));
 		humanPlayer = null;
 		legend = new HashMap<Character, String>();
 		targets = new HashSet<BoardCell>();
@@ -198,6 +225,7 @@ public class Board extends JPanel {
 			this.dealDeck();
 		}
 		calcAdjacencies();
+		System.out.println("" + solution);
 	}
 
 	// Find adjacent cells for selected BoardCell
@@ -450,12 +478,18 @@ public class Board extends JPanel {
 	}
 	
 	public Card handleSuggestion(Solution suggestion, Player accuser){
+		previous = suggestion;
 		int index = players.indexOf(accuser);
 		if(index < 0){
 			//not a valid accuser, might want to throw an error
+			response = null;
 			return null;
 		}
-		
+		for (Player p : Board.theInstance.getPlayers()) {
+			if (suggestion.person.name.equals(p.getPlayerName())) {
+				p.moveTo(this.getCellAt(accuser.getRow(), accuser.getColumn()));
+			}
+		}
 		for(int i = index + 1; i!=index; ++i) {
 			if(i >= players.size()){ 
 				i -= players.size();
@@ -465,11 +499,14 @@ public class Board extends JPanel {
 			}
 			Card result = players.get(i).disproveSuggestion(suggestion);
 			if(result != null) {
+				response = result;
 				return result; 
 			}
 		}
+		response = null;
 		return null;
 	}
+	
 	public boolean checkAccusation(Solution accusation) {
 		if(solution == null) {
 			return false;
@@ -545,7 +582,15 @@ public class Board extends JPanel {
 	    return color;
 	}
 	
+	public void setHumanFinished(boolean humanFinished) {
+		this.humanFinished = humanFinished;
+	}
+	
 	public class BoardListener implements MouseListener {
+		private Board board;
+		public BoardListener(Board board) {
+			this.board = board;
+		}
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			if (!humanFinished) {
@@ -553,15 +598,21 @@ public class Board extends JPanel {
 			if (targets != null) {
 				for (BoardCell a : targets) {
 					if (a.clicked(arg0.getX(), arg0.getY())) {
-						cell = new BoardCell(a.getColumn(), a.getRow());
+						cell = getCellAt(a.getRow(), a.getColumn());
 						break;
 					}
 				}
 			}
 			if (cell != null && !humanFinished) {
 				players.get(0).moveTo(cell);
-				humanFinished = true;
 				removeHighlights();
+				repaint();
+				if(cell.isRoom()) {
+					SuggestionPanel panel = new SuggestionPanel(theInstance, true);
+					panel.setLanded(true);
+					panel.setVisible(true);
+				}
+				humanFinished = true;
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Invalid cell", "Error", JOptionPane.INFORMATION_MESSAGE);

@@ -10,6 +10,7 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -22,17 +23,19 @@ public class ControlGUI extends JPanel {
 	private JTextField response;
 	private JButton nextPlayer;
 	private JButton accuse;
+	public static ControlGUI theGUI= null;
 	
 	public ControlGUI(ClueGame game) {
 		this.setLayout(new GridLayout(3,1));
 		this.add(this.createButtons(game));
 		this.add(this.createPlayerAndRoll());
 		this.add(this.createGuessInfo());
+		theGUI = this;
 	}
 	private JPanel createGuessInfo() {
 		JPanel result = new JPanel();
 		guess = new JTextField("A guess consisting of a weapon, player, and room",40);
-		guess.setEditable(true);
+		guess.setEditable(false);
 		guess.setBorder(new TitledBorder(new EtchedBorder(),"Guess"));
 		guess.setToolTipText("The Guess made, if one was made");
 		result.add(guess);
@@ -49,6 +52,7 @@ public class ControlGUI extends JPanel {
 		nextPlayer.addActionListener(new ButtonListener(game));
 		accuse = new JButton("Make an accusation");
 		accuse.setToolTipText("Allows the making of an accusation");
+		accuse.addActionListener(new ButtonListener(game));
 		result.add(nextPlayer);
 		result.add(accuse);
 		return result;
@@ -79,13 +83,44 @@ public class ControlGUI extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand() == "Next player") {
-				Random rand = new Random();
-				int roll = rand.nextInt(6) + 1;
-				game.doTurns(roll);
-				diceRoll.setText(Integer.toString(roll));
-				playerName.setText(game.getBoard().getPlayers().get(game.getCurrentPlayer()).getPlayerName());
-				game.repaint();
+				if(!Board.getInstance().getHumanFinished()){
+					JOptionPane.showMessageDialog(Board.getInstance(), "Your turn has not ended.", "Error", JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+				else{
+					Random rand = new Random();
+					int roll = rand.nextInt(6) + 1;
+					game.doTurns(roll);
+					diceRoll.setText(Integer.toString(roll));
+					playerName.setText(game.getBoard().getPlayers().get(game.getCurrentPlayer()).getPlayerName());
+					updateGuessInfo();
+					game.repaint();
+				}
 			}
+			else if (e.getActionCommand() == "Make an accusation") {
+				if (!game.getBoard().getHumanFinished()) {
+				SuggestionPanel panel = new SuggestionPanel(game.getBoard(), false);	
+				panel.setVisible(true);
+				}
+				else {
+					JOptionPane.showMessageDialog(Board.getInstance(), "It's not your turn!", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		}
+	}
+	public void updateGuessInfo() {
+		if (Board.getInstance().getPrevious() == null) {
+			guess.setText("-");
+			response.setText("-");
+		}
+		else {
+			if(Board.getInstance().getResponse() != null) {
+				response.setText(Board.getInstance().getResponse() + "");
+			}
+			else {
+				response.setText("No new clues.");
+			}
+			guess.setText(Board.getInstance().getPrevious() + "");
 		}
 	}
 	
